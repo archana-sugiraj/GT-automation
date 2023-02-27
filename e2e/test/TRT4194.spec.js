@@ -35,7 +35,7 @@ test.beforeEach(async ({ page }) => {
     
 });
 
-test('plotting 3 point shader in Solution View and check for its presence', async ({ page }) => {
+test.only('plotting 3 point shader in Solution View and check for its presence', async ({ page }) => {
     await pageObject.launchApplication(environment.baseUrl);
       await pageObject.clickOnLoadAPIButton();
       await threePointPageObject.clickOnOptionButton('Three point shader');
@@ -48,6 +48,8 @@ test('plotting 3 point shader in Solution View and check for its presence', asyn
       expect(await page.frameLocator(pageObject.grapfIframe).locator(threePointPageObject.secondPointOnThreeShader)).toBeVisible();
       expect(await page.frameLocator(pageObject.grapfIframe).locator(threePointPageObject.threePointOnThreeShader)).toBeVisible();
   });
+
+
 
 
 

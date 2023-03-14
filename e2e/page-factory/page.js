@@ -19,7 +19,7 @@ positiveSlope = 'span:has-text("Positive Slope")';
     'div[role="tabpanel"] div:has-text("0 10 20 30 40 50 60 70 80 90 100 10 20 30 40 50 60 70 80 90 100")';
 
   //tabPanel =
-    'div[role="tabpanel"] .position-relative .position-relative)';
+    //'div[role="tabpanel"] .position-relative .position-relative)';
   doneButton = 'button:has-text("Done")';
   identifierIframe = "#mce_0_ifr";
   drawToggle = '//*[@class="toggle-container"]';
@@ -49,27 +49,11 @@ positiveSlope = 'span:has-text("Positive Slope")';
   }
 
   async plotshaderOnGraph(value) {
-    await this.page
-      .frameLocator(this.grapfIframe)
-      .locator("rect")
-      .nth(4)
-      .click();
-
-      if(value==='line'){
-      await this.page
-      .frameLocator(this.grapfIframe)
-      .locator(this.tabPanel)
-      .nth(2)
-      .click();
-      }else{
-        console.log("test else console")
-        await this.page
-      .frameLocator(this.grapfIframe)
-      .locator(this.tabPanel)
-      .nth(1)
-      .click();
+    await this.page.frameLocator(this.grapfIframe).locator("rect").nth(4).click({position:{x:30,y:30}});
+    await this.page.frameLocator(this.grapfIframe).locator("rect").nth(4).click({position:{x:20,y:25}});
+    await this.page.frameLocator(this.grapfIframe).locator("rect").nth(4).click({position:{x:30,y:40}});
       }
-  }
+  
 
   async clickOnDoneButton() {
     await this.page

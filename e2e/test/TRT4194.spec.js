@@ -28,9 +28,9 @@ test.beforeEach(async ({ page }) => {
     await threePointPageObject.clickOnOptionButton('Three point shader');
     await pageObject.plotshaderOnGraph("Three point shader");
   
-    var pointsonquestionview = await threePointPageObject.getPolygonAttribute("points");
+    var pointsonquestionview = await threePointPageObject.getPolygonAttributeByLocator("points",threePointPageObject.threeShader_1);
     await page.frameLocator(pageObject.grapfIframe).locator(threePointPageObject.solutionviewtab).click(); 
-    var pointsonsolutionview = await threePointPageObject.getPolygonAttribute("points");
+    var pointsonsolutionview = await threePointPageObject.getPolygonAttributeByLocator("points",threePointPageObject.threeShader_1);
     expect(pointsonquestionview).toStrictEqual(pointsonsolutionview);
     
 });

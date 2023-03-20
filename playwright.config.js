@@ -4,7 +4,7 @@ const { devices } = require('@playwright/test');
 
 const config = {
   testDir: './e2e/test',
-  //retries : 3,
+ // retries : 3,
   /* Maximum time one test can run for. */
   timeout: 60 * 1000,
   

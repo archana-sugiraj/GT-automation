@@ -33,13 +33,6 @@ const bothIframes1=page.frameLocator(threePointPageObject. whole_Iframe).frameLo
 await bothIframes1.allTextContents();
 await bothIframes1.selectText();
 await page.frameLocator(threePointPageObject.whole_Iframe).locator(threePointPageObject.Bold).click();
-
-// const originalText1 =await bothIframes1.locator(threePointPageObject.solutionviewtext).allTextContents();
-// await bothIframes1.locator(threePointPageObject.solutionviewtext).selectText();
-// await threePointPageObject.selectButtonById("mceu_1-button");
-
-    
-
 await page.frameLocator(pageObject.grapfIframe).locator('.form-control').nth(0).fill("85");
 await page.frameLocator(pageObject.grapfIframe).locator('.form-control').nth(1).fill("45");
 await page.frameLocator(pageObject.grapfIframe).locator('.form-control').nth(2).fill("75");

@@ -72,6 +72,22 @@ export class ThreePointPageObject {
  btn_YesProceed = "//button[text()=' Yes, proceed ']";
  property_Panel = '.properties-panel-body';
  score_area = '[name="ext_012345678_1_eval"]';
+ txt_GraphSummary = "//button[text()='Graph Summary']";
+ txt_Gphsmryheader = '//h2[text()=" Graph Summary "]';
+ txt_Gphsmry_clsIcon = ".ahe-icon-close-white";
+ txt_Gphsmtydetails = ".modal-content-text";
+ txt_instructions = "//button[text()='Instructions']";
+ txt_instructionsheader  = '//h2[text()=" Instructions "]';
+ txt_instruction_clsIcon = ".ahe-icon-close-white";
+ txt_Ins_PanelHeader = '//h3[text()="Keyboard navigation"]';
+ txt_tab = "//li[1]";
+ txt_Enter = "//li[2]";
+ txt_Undo_Ins = "//li[3]";
+ txt_Redo_Ins = "//li[4]";
+ txt_GraphTitle = "//h2[text()='Graph Title']";
+ txt_SubTitle = "//h3[text()='Subtitle']";
+ txt_Yaxis_label = "//h3[text()='Y-axis Label']";
+ txt_X_axis_Label = "//h3[text()='X-axis Label']";
 
 
   page;

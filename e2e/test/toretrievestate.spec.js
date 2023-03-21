@@ -29,10 +29,15 @@ test.beforeEach(async ({ page }) => {
 await threePointPageObject.plotshaderOnGraph("Three point shader");
 await threePointPageObject.selectStyle("Dotted");
 await threePointPageObject.selectButtonByText("3px");
-const bothIframes1=page.frameLocator(threePointPageObject. whole_Iframe).frameLocator(threePointPageObject.text_solIframe);
-const originalText1 =await bothIframes1.locator(threePointPageObject.tinymce).allTextContents();
-await bothIframes1.locator(threePointPageObject.tinymce).selectText();
-await threePointPageObject.selectButtonById("mceu_1-button");
+const bothIframes1=page.frameLocator(threePointPageObject. whole_Iframe).frameLocator(threePointPageObject.text_solIframe).locator(threePointPageObject.solutionviewtext);
+await bothIframes1.allTextContents();
+await bothIframes1.selectText();
+await page.frameLocator(threePointPageObject.whole_Iframe).locator(threePointPageObject.Bold).click();
+
+// const originalText1 =await bothIframes1.locator(threePointPageObject.solutionviewtext).allTextContents();
+// await bothIframes1.locator(threePointPageObject.solutionviewtext).selectText();
+// await threePointPageObject.selectButtonById("mceu_1-button");
+
     
 
 await page.frameLocator(pageObject.grapfIframe).locator('.form-control').nth(0).fill("85");
@@ -41,6 +46,11 @@ await page.frameLocator(pageObject.grapfIframe).locator('.form-control').nth(2).
 await page.frameLocator(pageObject.grapfIframe).locator('.form-control').nth(3).fill("35");
 await page.frameLocator(pageObject.grapfIframe).locator('.form-control').nth(4).fill("95");
 await page.frameLocator(pageObject.grapfIframe).locator('.form-control').nth(5).fill("35");
+await page.frameLocator(pageObject.grapfIframe).locator(threePointPageObject.closebutton).nth(0).click();
+//await page.frameLocator(pageObject.grapfIframe).locator(threePointPageObject.graphdesc).nth(3).click();
+await page.frameLocator('iframe[name="ext_012345678_1"]').locator('text=accordion-closeGraph Description >> button').click();
+await page.frameLocator(pageObject.grapfIframe).locator(threePointPageObject.link_Generate).click();
+await page.frameLocator(pageObject.grapfIframe).locator(threePointPageObject.btn_Save).click();
 await page.locator(threePointPageObject.retrieveoutput).click();
 
  await page.waitForTimeout(6000);

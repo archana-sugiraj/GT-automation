@@ -4,7 +4,7 @@ const { test, expect, Page } = require("@playwright/test");
 export class ThreePointPageObject {
  
   loadAPI = 'button:has-text("Load API Below")';
-  grapfIframe = 'iframe[name="ext_012345678_1"]';  
+  grapfIframe = '[name="ext_012345678_1"]';  
   threePointLine = 'shader-line';
   firstPointOnThreeShader = '//*[@id="ThreeShader_1_Point_0"]';
   secondPointOnThreeShader = '//*[@id="ThreeShader_1_Point_1"]';
@@ -22,10 +22,10 @@ export class ThreePointPageObject {
   //solutionframe = '[frameborder="0"]';
   whole_Iframe='[name="ext_012345678_1"]';
   text_Iframe = '#mce_0_ifr';
-  text_solIframe = '#mce_5_ifr';
+  text_solIframe = '[allowtransparency="true"]';
   title ="//body[text()='ThreePointShader 1']";  
-  Bold='#mceu_0-button';
-  tinymce ="#tinymce";
+  Bold='[aria-label="Bold"]';
+  tinymce ="//body[text() = 'ThreePointShader 1']";
   solutionviewtab='span:has-text("Solution View")';  
   questionviewtab='span:has-text("Question View")';
   buttonpanel ="#mceu_6";
@@ -46,9 +46,34 @@ export class ThreePointPageObject {
   txt_Reset="//span[text()='Reset']";
   retrieveoutputtextarea = '[name="ext_012345678_1_ostate"]';
   threepointshadertool = '#ThreeShader_2_item';
-  threepointshadertoolicon = 'three-vertices-icon';
- 
- 
+  threepointshadertoolicon = '#three-vertices-icon';
+  solutionviewtext = "//body[text()='ThreePointShader 2']";
+ ////*[@id="LABEL.TEXTDESCRPTION"]/div/gt-graph-description/div/div/a[1]
+ closebutton = ".dpg-icon-system-close";
+ Graphdesc = 'text=accordion-closeGraph Description >> button';
+ link_Generate =  "//a[text() = 'Generate']";
+ btn_Save =  "//button[text()='Save']";
+ txt_3point_solution="//strong[text()='ThreePointShader 2']";
+ btn_close = '.dpg-icon-system-close-white';
+ txt_Pt1_of_3 = "//label[text()=' Point 1 of 3']";
+ txt_Pt2_of_3 = "//label[text()=' Point 1 of 3']";
+ txt_Pt3_of_3 = "//label[text()=' Point 1 of 3']";
+ txt_X = "//label[text()='X']";
+ txt_Y = "//label[text()='Y']";
+ XYinput_Box = '[type="number"]';
+ txt_outsidegraphingArea = "//span[text()='You have entered a coordinate that exists outside the graphing area.']";
+ txt_minvalue = "//span[text()='The value entered is less than the minimum coordinate system value.']";
+ txt_decimalvalue = "//span[text()='Please enter a value with less than or equal to 2 decimal places.']";
+ txt_novalue = "//span[text()='Please enter a value.']";
+ btn_done = "//button[text()='Done']";
+ btn_clear = "//button[text()='Clear']";
+ Popup_Reset = '//p[text()="If you reset the activity, all of your changes will be lost. Do you want to proceed?"]';
+ btn_cancel = '//button[text()=" Cancel "]';
+ btn_YesProceed = "//button[text()=' Yes, proceed ']";
+ property_Panel = '.properties-panel-body';
+ score_area = '[name="ext_012345678_1_eval"]';
+
+
   page;
   constructor(page){
     this.page = page;

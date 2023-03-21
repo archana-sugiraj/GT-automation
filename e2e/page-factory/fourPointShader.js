@@ -26,7 +26,7 @@ export class FourPointPageObject {
         await this.page
           .frameLocator(this.grapfIframe)
           .locator("rect")
-          .nth(3)
+          .nth(4)
           .click();
     
           if(value==='line'){

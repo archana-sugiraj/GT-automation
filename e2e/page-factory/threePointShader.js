@@ -92,7 +92,11 @@ export class ThreePointPageObject {
  txt_Correct = "//span[text()='Correct']";
  pregrade_Icon = "#Symbols";
  pregrade_Text = "//span[text()='ThreePointShader 2']";
-
+ txt_alert = ".alert-info";
+ txt_Incorrect = "//span[text()='Incorrect']";
+ txt_warning = ".alert-warning";
+ txt_Incomplete = "//span[text()='Incomplete']";
+ txt_Incomplete1 = "//span[text()='Incorrect']";
  
 
 

@@ -89,6 +89,11 @@ export class ThreePointPageObject {
  txt_Yaxis_label = "//h3[text()='Y-axis Label']";
  txt_X_axis_Label = "//h3[text()='X-axis Label']";
  txt_Success = ".alert-success";
+ txt_Correct = "//span[text()='Correct']";
+ pregrade_Icon = "#Symbols";
+ pregrade_Text = "//span[text()='ThreePointShader 2']";
+
+ 
 
 
   page;

@@ -88,6 +88,7 @@ export class ThreePointPageObject {
  txt_SubTitle = "//h3[text()='Subtitle']";
  txt_Yaxis_label = "//h3[text()='Y-axis Label']";
  txt_X_axis_Label = "//h3[text()='X-axis Label']";
+ txt_Success = ".alert-success";
 
 
   page;

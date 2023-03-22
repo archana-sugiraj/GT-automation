@@ -458,6 +458,7 @@ test.only('Scoring 100%', async ({ page }) => {
   await pageObject.clickOnLoadAPIButton();
   const icon = page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.threepointshadertool);
   await (icon).click();
+  expect(page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.txt_3point_solution)).toBeVisible();
   await page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.XYinput_Box).nth(0).fill('85');
   await page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.XYinput_Box).nth(1).fill('45');
   await page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.XYinput_Box).nth(2).fill('75');

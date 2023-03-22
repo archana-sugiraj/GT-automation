@@ -62,7 +62,7 @@ test('Success message Validation ', async ({ page }) => {
 });
 
 
-test.only('Validating the Text,icon,coordinates  and tool in pregrade ', async ({ page }) => {    
+test('Validating the Text,icon,coordinates  and tool in pregrade ', async ({ page }) => {    
     await pageObject.launchApplication(environment.baseUrl);
     await page.locator(threePointPageObject.retrieveoutputtextarea).type(data.student_state);
     await page.locator(threePointPageObject.modedropdown).selectOption('sample');
@@ -78,12 +78,7 @@ test.only('Validating the Text,icon,coordinates  and tool in pregrade ', async (
 
 });
 
-
-
-
-
-
-test('Validating the presence of 3 point shader in Pregrade mode after answering', async ({ page }) => {    
+test.only('Validating the presence of 3 point shader in Pregrade mode after answering', async ({ page }) => {    
     await pageObject.launchApplication(environment.baseUrl);
     await pageObject.clickOnLoadAPIButton();
     await threePointPageObject.clickOnOptionButton('Three point shader');
@@ -134,7 +129,15 @@ await page.locator(threePointPageObject.retrieveoutput).click();
 await page.locator(threePointPageObject.modedropdown).selectOption('sample');
 await page.locator(threePointPageObject.copytoinput).click();
 await pageObject.clickOnLoadAPIButton();
-await page.waitForTimeout(6000);
+await page.waitForTimeout(3000);
+var Qpoints = await threePointPageObject.getPolygonAttributeByLocator("points",threePointPageObject.threeShader_1);
+var Spoints = await threePointPageObject.getPolygonAttributeByLocator("points",threePointPageObject.threeShader_2);
+console.log(Qpoints); 
+console.log(Spoints);
+await page.waitForTimeout(3000);
+expect(points).toStrictEqual(Qpoints);  
+expect(points1).toStrictEqual(Spoints);  
+
 
 
 

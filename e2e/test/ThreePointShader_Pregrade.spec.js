@@ -13,10 +13,11 @@ test.beforeEach(async ({ page }) => {
    threePointPageObject = new ThreePointPageObject(page);
   });
 
-  test('Graph Summary Validation ', async ({ page }) => {    
+
+test('Graph Summary Validation ', async ({ page }) => {    
     await pageObject.launchApplication(environment.baseUrl);
     await page.locator(threePointPageObject.retrieveoutputtextarea).type(data.student_state);
-    await page.locator(threePointPageObject.modedropdown).selectOption('review');
+    await page.locator(threePointPageObject.modedropdown).selectOption('sample');
     await page.locator(threePointPageObject.copytoinput).click();
     await pageObject.clickOnLoadAPIButton();
     await page.waitForTimeout(3000);
@@ -34,7 +35,7 @@ test.beforeEach(async ({ page }) => {
 test('Graph attributes Validation ', async ({ page }) => {    
     await pageObject.launchApplication(environment.baseUrl);
     await page.locator(threePointPageObject.retrieveoutputtextarea).type(data.student_state);
-    await page.locator(threePointPageObject.modedropdown).selectOption('review');
+    await page.locator(threePointPageObject.modedropdown).selectOption('sample');
     await page.locator(threePointPageObject.copytoinput).click();
     await pageObject.clickOnLoadAPIButton();
     await page.waitForTimeout(3000);
@@ -42,28 +43,51 @@ test('Graph attributes Validation ', async ({ page }) => {
     expect(page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.txt_SubTitle)).toBeVisible();
     expect(page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.txt_Yaxis_label)).toBeVisible();
     expect(page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.txt_X_axis_Label)).toBeVisible();
-    
 
 });
 
-test('Validating the Text,icon,coordinates  and tool in pregrade ', async ({ page }) => {    
+test('Success message Validation ', async ({ page }) => {    
     await pageObject.launchApplication(environment.baseUrl);
     await page.locator(threePointPageObject.retrieveoutputtextarea).type(data.student_state);
-    await page.locator(threePointPageObject.modedropdown).selectOption('review');
+    await page.locator(threePointPageObject.modedropdown).selectOption('sample');
     await page.locator(threePointPageObject.copytoinput).click();
     await pageObject.clickOnLoadAPIButton();
     await page.waitForTimeout(3000);
-    expect(page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.txt_Correct)).toBeVisible();
-    expect(page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.pregrade_Icon)).toBeVisible();
-    console.log('check');
-    await page.waitForTimeout(3000);
-    //expect(page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.pregrade_Text)).toBeVisible();
-    await page.waitForTimeout(3000);
-
+    expect(page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.txt_Success)).toBeVisible();
+    const receivedsuccessmsg =await page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.txt_Success).allTextContents();
+    console.log(receivedsuccessmsg);
+    const expsuccessmsg = ["SuccessAnswer is complete and entirely correct"];
+    expect(receivedsuccessmsg).toStrictEqual(expsuccessmsg);
+    await page.waitForTimeout(5000);
 });
 
 
-test.only('Validating the presence of 3 point shader in Pregrade mode after answering', async ({ page }) => {    
+test('Validating the Text,icon,coordinates and tool in pregrade ', async ({ page }) => {    
+    await pageObject.launchApplication(environment.baseUrl);
+    await page.locator(threePointPageObject.retrieveoutputtextarea).type(data.student_state);
+    await page.locator(threePointPageObject.modedropdown).selectOption('sample');
+    await page.locator(threePointPageObject.copytoinput).click();
+    await pageObject.clickOnLoadAPIButton();
+    await page.waitForLoadState("networkidle");
+    expect(page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.txt_Correct)).toBeVisible();
+    expect(page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.pregrade_Icon)).toBeVisible();
+    await page.waitForTimeout(3000);
+    expect(page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.pregrade_Text)).toBeVisible();
+    await (page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.pregrade_Text)).click();
+    expect (page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.txt_Pt1_of_3)).toBeVisible();
+    expect (page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.txt_Pt2_of_3)).toBeVisible();
+    expect (page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.txt_Pt3_of_3)).toBeVisible();
+    expect (page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.XYinput_Box).nth(0)).toBeDisabled();
+    expect (page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.XYinput_Box).nth(1)).toBeDisabled();
+    expect (page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.XYinput_Box).nth(2)).toBeDisabled();
+    expect (page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.XYinput_Box).nth(3)).toBeDisabled();
+    expect (page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.XYinput_Box).nth(4)).toBeDisabled();
+    expect (page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.XYinput_Box).nth(5)).toBeDisabled();
+
+
+});
+
+test('Validating the presence of Question view and solution view of 3 point shader in Pregrade mode', async ({ page }) => {    
     await pageObject.launchApplication(environment.baseUrl);
     await pageObject.clickOnLoadAPIButton();
     await threePointPageObject.clickOnOptionButton('Three point shader');
@@ -111,7 +135,7 @@ await page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPa
 await page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.XYinput_Box).nth(5).fill('35');
 await page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.btn_done).click();
 await page.locator(threePointPageObject.retrieveoutput).click();
-await page.locator(threePointPageObject.modedropdown).selectOption('review');
+await page.locator(threePointPageObject.modedropdown).selectOption('sample');
 await page.locator(threePointPageObject.copytoinput).click();
 await pageObject.clickOnLoadAPIButton();
 await page.waitForTimeout(3000);
@@ -122,14 +146,7 @@ console.log(Spoints);
 await page.waitForTimeout(3000);
 expect(points).toStrictEqual(Qpoints);  
 expect(points1).toStrictEqual(Spoints);  
-
-
-
-
-    
-
-
-
-
 });
+
+
 

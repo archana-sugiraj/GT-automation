@@ -2,35 +2,36 @@ const { test, expect,page } = require('@playwright/test');
 import { globalSetup } from "../global-setup/globalSetup.js";
 import { PageObject } from '../page-factory/page';
 import{ ThreePointPageObject} from '../page-factory/threePointShader';
+import{ FourPointPageObject} from '../page-factory/fourPointShader';
 const data = require('../testdata/data');
 
 var environment =globalSetup();
 var pageObject;
 var threePointPageObject;
+var fourPointPageObject;
 
 test.beforeEach(async ({ page }) => {
    pageObject = new PageObject(page);
    threePointPageObject = new ThreePointPageObject(page);
+   fourPointPageObject = new FourPointPageObject(page);
   });
 
-  test('Launching 3 point shader in test mode using the state', async ({ page }) => {
-    
+  test('Launching 4 point shader in test mode using the state', async ({ page }) => {    
     await pageObject.launchApplication(environment.baseUrl);
-    await page.locator(threePointPageObject.retrieveoutputtextarea).type(data.author_state);
+    await page.locator(threePointPageObject.retrieveoutputtextarea).type(data.fourauthor_state);
     await page.locator(threePointPageObject.modedropdown).selectOption('test');
     await page.locator(threePointPageObject.copytoinput).click();
     await pageObject.clickOnLoadAPIButton();
-    await page.waitForTimeout(5000);   
-
+    await page.waitForTimeout(5000);  
   });
 
   test('Graph Summary Validation ', async ({ page }) => {    
     await pageObject.launchApplication(environment.baseUrl);
-    await page.locator(threePointPageObject.retrieveoutputtextarea).type(data.author_state);
+    await page.locator(threePointPageObject.retrieveoutputtextarea).type(data.fourauthor_state);
     await page.locator(threePointPageObject.modedropdown).selectOption('test');
     await page.locator(threePointPageObject.copytoinput).click();
     await pageObject.clickOnLoadAPIButton();
-    await page.waitForTimeout(3000);
+    await page.waitForLoadState("networkidle");
     expect(page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.txt_GraphSummary)).toBeVisible();
     expect(page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.txt_GraphSummary)).toBeEnabled();
     await page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.txt_GraphSummary).click();
@@ -43,10 +44,11 @@ test.beforeEach(async ({ page }) => {
 
   test('Instruction Validation ', async ({ page }) => {    
     await pageObject.launchApplication(environment.baseUrl);
-    await page.locator(threePointPageObject.retrieveoutputtextarea).type(data.author_state);
+    await page.locator(threePointPageObject.retrieveoutputtextarea).type(data.fourauthor_state);
     await page.locator(threePointPageObject.modedropdown).selectOption('test');
     await page.locator(threePointPageObject.copytoinput).click();
     await pageObject.clickOnLoadAPIButton();
+    await page.waitForLoadState("networkidle");
     await page.waitForTimeout(3000);
     expect(page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.txt_instructions)).toBeVisible();
     expect(page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.txt_instructions)).toBeEnabled();
@@ -64,76 +66,81 @@ test.beforeEach(async ({ page }) => {
 
   test('Graph attributes Validation ', async ({ page }) => {    
     await pageObject.launchApplication(environment.baseUrl);
-    await page.locator(threePointPageObject.retrieveoutputtextarea).type(data.author_state);
+    await page.locator(threePointPageObject.retrieveoutputtextarea).type(data.fourauthor_state);
     await page.locator(threePointPageObject.modedropdown).selectOption('test');
     await page.locator(threePointPageObject.copytoinput).click();
     await pageObject.clickOnLoadAPIButton();
+    await page.waitForLoadState("networkidle");
     await page.waitForTimeout(3000);
     expect(page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.txt_GraphTitle)).toBeVisible();
     expect(page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.txt_SubTitle)).toBeVisible();
     expect(page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.txt_Yaxis_label)).toBeVisible();
     expect(page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.txt_X_axis_Label)).toBeVisible();
-
-
   });
-  
 
- 
-
-  test('Check for the presence of Tools in test mode', async ({ page }) => {    
+  test('Check for the presence of Tool in test mode ', async ({ page }) => {    
     await pageObject.launchApplication(environment.baseUrl);
-    await page.locator(threePointPageObject.retrieveoutputtextarea).type(data.author_state);
+    await page.locator(threePointPageObject.retrieveoutputtextarea).type(data.fourauthor_state);
     await page.locator(threePointPageObject.modedropdown).selectOption('test');
     await page.locator(threePointPageObject.copytoinput).click();
     await pageObject.clickOnLoadAPIButton();
+    await page.waitForLoadState("networkidle");
+    await page.waitForTimeout(3000);
     expect(page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.txt_Tools)).toBeVisible();
-    await page.waitForTimeout(5000);  
+
   });
 
-  test('Check for 3 point shader tool text  in test mode', async ({ page }) => {    
+  test('Check for 4 point shader tool text  in test mode ', async ({ page }) => {    
     await pageObject.launchApplication(environment.baseUrl);
-    await page.locator(threePointPageObject.retrieveoutputtextarea).type(data.author_state);
+    await page.locator(threePointPageObject.retrieveoutputtextarea).type(data.fourauthor_state);
     await page.locator(threePointPageObject.modedropdown).selectOption('test');
     await page.locator(threePointPageObject.copytoinput).click();
     await pageObject.clickOnLoadAPIButton();
-    await page.waitForTimeout(2000);
-    expect(page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.txt_3point_solution)).toBeVisible();
+    await page.waitForLoadState("networkidle");
+    await page.waitForTimeout(3000);
+    expect(page.frameLocator(threePointPageObject. whole_Iframe).locator(fourPointPageObject.txt_4point_sol)).toBeVisible();
      
   });
 
-  test('Check for the presence of Undo in test mode', async ({ page }) => {    
+  test('Check for the presence of Undo in test mode ', async ({ page }) => {    
     await pageObject.launchApplication(environment.baseUrl);
-    await page.locator(threePointPageObject.retrieveoutputtextarea).type(data.author_state);
+    await page.locator(threePointPageObject.retrieveoutputtextarea).type(data.fourauthor_state);
     await page.locator(threePointPageObject.modedropdown).selectOption('test');
     await page.locator(threePointPageObject.copytoinput).click();
     await pageObject.clickOnLoadAPIButton();
+    await page.waitForLoadState("networkidle");
+    await page.waitForTimeout(3000);
     expect(page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.txt_undo)).toBeVisible();
-    await page.waitForTimeout(5000);  
   });
 
-  test('Check for the  Disabled/Enabled Undo in test mode ', async ({ page }) => {    
+  test('Check for the  Disabled/Enabled Undo in test mode', async ({ page }) => {    
     await pageObject.launchApplication(environment.baseUrl);
-    await page.locator(threePointPageObject.retrieveoutputtextarea).type(data.author_state);
+    await page.locator(threePointPageObject.retrieveoutputtextarea).type(data.fourauthor_state);
     await page.locator(threePointPageObject.modedropdown).selectOption('test');
     await page.locator(threePointPageObject.copytoinput).click();
     await pageObject.clickOnLoadAPIButton();
+    await page.waitForLoadState("networkidle");
     await page.waitForTimeout(3000);
     expect(page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.txt_undo)).toBeDisabled();
-   const icon = page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.threepointshadertool);
-  await (icon).click();
+    const icon = page.frameLocator(threePointPageObject. whole_Iframe).locator(fourPointPageObject.fourpointshadertool);
+    await (icon).click();
     await page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.XYinput_Box).nth(0).fill('30');
+    await page.waitForTimeout(3000);
     await page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.XYinput_Box).nth(1).fill('40');
     await page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.XYinput_Box).nth(2).click();
     expect(page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.txt_undo)).toBeEnabled();
   });
-
-  test('Validating the  Undo in test mode ', async ({ page }) => {    
+  // below case will fail due to the issue with the Undo button
+  test('Validating the  Undo button in test mode', async ({ page }) => {    
     await pageObject.launchApplication(environment.baseUrl);
-    await page.locator(threePointPageObject.retrieveoutputtextarea).type(data.author_state);
+    await page.locator(threePointPageObject.retrieveoutputtextarea).type(data.fourauthor_state);
     await page.locator(threePointPageObject.modedropdown).selectOption('test');
     await page.locator(threePointPageObject.copytoinput).click();
     await pageObject.clickOnLoadAPIButton();
-    const icon = page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.threepointshadertool);
+    await page.waitForLoadState("networkidle");
+    await page.waitForTimeout(3000);
+    expect(page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.txt_undo)).toBeDisabled();
+    const icon = page.frameLocator(threePointPageObject. whole_Iframe).locator(fourPointPageObject.fourpointshadertool);
     await (icon).click();
     await page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.XYinput_Box).nth(0).fill('30');
     await page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.XYinput_Box).nth(1).fill('40');
@@ -153,12 +160,14 @@ test.beforeEach(async ({ page }) => {
     expect (page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.XYinput_Box).nth(1)).toHaveValue('50');
 
   });
+
   test('Check for the presence of Redo in test mode', async ({ page }) => {    
     await pageObject.launchApplication(environment.baseUrl);
-    await page.locator(threePointPageObject.retrieveoutputtextarea).type(data.author_state);
+    await page.locator(threePointPageObject.retrieveoutputtextarea).type(data.fourauthor_state);
     await page.locator(threePointPageObject.modedropdown).selectOption('test');
     await page.locator(threePointPageObject.copytoinput).click();
     await pageObject.clickOnLoadAPIButton();
+    await page.waitForLoadState("networkidle");
     await page.waitForTimeout(3000);
     expect(page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.txt_Redo)).toBeVisible();
     await page.waitForTimeout(5000);  
@@ -166,15 +175,16 @@ test.beforeEach(async ({ page }) => {
 
   test('Check for the Disabled/Enabled Redo in test mode', async ({ page }) => {    
     await pageObject.launchApplication(environment.baseUrl);
-    await page.locator(threePointPageObject.retrieveoutputtextarea).type(data.author_state);
+    await page.locator(threePointPageObject.retrieveoutputtextarea).type(data.fourauthor_state);
     await page.locator(threePointPageObject.modedropdown).selectOption('test');
     await page.locator(threePointPageObject.copytoinput).click();
     await pageObject.clickOnLoadAPIButton();
+    await page.waitForLoadState("networkidle");
     await page.waitForTimeout(3000);
     expect(page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.txt_Redo)).toBeDisabled();
-    const icon = page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.threepointshadertool);
+    const icon = page.frameLocator(threePointPageObject. whole_Iframe).locator(fourPointPageObject.fourpointshadertool);
   await (icon).click();
-    await page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.XYinput_Box).nth(0).fill('30');
+  await page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.XYinput_Box).nth(0).fill('30');
     await page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.XYinput_Box).nth(1).fill('40');
     await page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.XYinput_Box).nth(2).click();
     await page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.txt_undo).click();
@@ -182,13 +192,15 @@ test.beforeEach(async ({ page }) => {
         
   });
 
-  test('Validating the  Redo in test mode ', async ({ page }) => {    
+  test('Validating the  Redo in test mode', async ({ page }) => {    
     await pageObject.launchApplication(environment.baseUrl);
-    await page.locator(threePointPageObject.retrieveoutputtextarea).type(data.author_state);
+    await page.locator(threePointPageObject.retrieveoutputtextarea).type(data.fourauthor_state);
     await page.locator(threePointPageObject.modedropdown).selectOption('test');
     await page.locator(threePointPageObject.copytoinput).click();
     await pageObject.clickOnLoadAPIButton();
-    const icon = page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.threepointshadertool);
+    await page.waitForLoadState("networkidle");
+    await page.waitForTimeout(3000);
+    const icon = page.frameLocator(threePointPageObject. whole_Iframe).locator(fourPointPageObject.fourpointshadertool);
     await (icon).click();
     await page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.XYinput_Box).nth(0).fill('80');
     await page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.XYinput_Box).nth(1).fill('90');
@@ -217,24 +229,26 @@ test.beforeEach(async ({ page }) => {
         
   });
 
-  
   test('Check for the presence of Reset in test mode', async ({ page }) => {    
     await pageObject.launchApplication(environment.baseUrl);
-    await page.locator(threePointPageObject.retrieveoutputtextarea).type(data.author_state);
+    await page.locator(threePointPageObject.retrieveoutputtextarea).type(data.fourauthor_state);
     await page.locator(threePointPageObject.modedropdown).selectOption('test');
     await page.locator(threePointPageObject.copytoinput).click();
     await pageObject.clickOnLoadAPIButton();
+    await page.waitForLoadState("networkidle");
+    await page.waitForTimeout(3000);
     expect(page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.txt_Reset)).toBeVisible();
     await page.waitForTimeout(5000);  
   });
 
   test('Check for the Enabled Reset in test mode', async ({ page }) => {    
     await pageObject.launchApplication(environment.baseUrl);
-    await page.locator(threePointPageObject.retrieveoutputtextarea).type(data.author_state);
+    await page.locator(threePointPageObject.retrieveoutputtextarea).type(data.fourauthor_state);
     await page.locator(threePointPageObject.modedropdown).selectOption('test');
     await page.locator(threePointPageObject.copytoinput).click();
     await pageObject.clickOnLoadAPIButton();
-    await page.waitForTimeout(3000);  
+    await page.waitForLoadState("networkidle");
+    await page.waitForTimeout(3000);
     expect(page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.txt_Reset)).toBeEnabled();
     await page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.txt_Reset).click();
     expect(page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.Popup_Reset)).toBeVisible();
@@ -245,13 +259,15 @@ test.beforeEach(async ({ page }) => {
   
   });
 
-  test('Validating the  Reset in test mode ', async ({ page }) => { 
+  test('Validating the  Reset in test mode', async ({ page }) => {    
     await pageObject.launchApplication(environment.baseUrl);
-    await page.locator(threePointPageObject.retrieveoutputtextarea).type(data.author_state);
+    await page.locator(threePointPageObject.retrieveoutputtextarea).type(data.fourauthor_state);
     await page.locator(threePointPageObject.modedropdown).selectOption('test');
     await page.locator(threePointPageObject.copytoinput).click();
     await pageObject.clickOnLoadAPIButton();
-    const icon = page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.threepointshadertool);
+    await page.waitForLoadState("networkidle");
+    await page.waitForTimeout(3000);
+    const icon = page.frameLocator(threePointPageObject. whole_Iframe).locator(fourPointPageObject.fourpointshadertool);
     await (icon).click();
     await page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.XYinput_Box).nth(0).fill('80');
     await page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.XYinput_Box).nth(1).fill('90');
@@ -265,79 +281,93 @@ test.beforeEach(async ({ page }) => {
     
   });
 
-  
-
-  test('Check for 3 point shader tool  in test mode', async ({ page }) => {    
+  test('Check for 4 point shader tool  in test mode', async ({ page }) => {    
     await pageObject.launchApplication(environment.baseUrl);
-    await page.locator(threePointPageObject.retrieveoutputtextarea).type(data.author_state);
+    await page.locator(threePointPageObject.retrieveoutputtextarea).type(data.fourauthor_state);
     await page.locator(threePointPageObject.modedropdown).selectOption('test');
     await page.locator(threePointPageObject.copytoinput).click();
     await pageObject.clickOnLoadAPIButton();
-    expect(page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.threepointshadertool)).toBeVisible();
-    await page.waitForTimeout(15000);  
+    await page.waitForLoadState("networkidle");
+    await page.waitForTimeout(3000);
+    expect(page.frameLocator(threePointPageObject. whole_Iframe).locator(fourPointPageObject.fourpointshadertool)).toBeVisible();
+    await page.waitForTimeout(3000);  
   });
 
-  test('Check for 3 point shader tool icon in test mode', async ({ page }) => {    
+  test('Check for 4 point shader tool icon in test mode', async ({ page }) => {    
     await pageObject.launchApplication(environment.baseUrl);
-    await page.locator(threePointPageObject.retrieveoutputtextarea).type(data.author_state);
+    await page.locator(threePointPageObject.retrieveoutputtextarea).type(data.fourauthor_state);
     await page.locator(threePointPageObject.modedropdown).selectOption('test');
     await page.locator(threePointPageObject.copytoinput).click();
     await pageObject.clickOnLoadAPIButton();
-    const icon = page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.threepointshadertool);
-    expect (icon.locator(threePointPageObject.threepointshadertoolicon)).toBeVisible();
-    await page.waitForTimeout(5000);  
+    await page.waitForLoadState("networkidle");
+    await page.waitForTimeout(3000);
+    expect(page.frameLocator(threePointPageObject. whole_Iframe).locator(fourPointPageObject.fourpointshadertoolicon)).toBeVisible();
+    await page.waitForTimeout(3000);  
   });
 
-  test('clicking 3 point shader tool and presence of close button', async ({ page }) => {    
+  test('clicking 4 point shader tool and presence of close button', async ({ page }) => {    
     await pageObject.launchApplication(environment.baseUrl);
-    await page.locator(threePointPageObject.retrieveoutputtextarea).type(data.author_state);
+    await page.locator(threePointPageObject.retrieveoutputtextarea).type(data.fourauthor_state);
     await page.locator(threePointPageObject.modedropdown).selectOption('test');
     await page.locator(threePointPageObject.copytoinput).click();
     await pageObject.clickOnLoadAPIButton();
-    const icon = page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.threepointshadertool);
+    await page.waitForLoadState("networkidle");
+    await page.waitForTimeout(3000);
+    const icon = page.frameLocator(threePointPageObject. whole_Iframe).locator(fourPointPageObject.fourpointshadertool);
     await (icon).click();
     expect (page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.btn_close)).toBeVisible();
     await page.waitForTimeout(5000);  
   });
 
-  test('clicking 3 point shader tool and presence of text ', async ({ page }) => {    
+  test('clicking 4 point shader tool and check for the presence of Label for all the coordinates', async ({ page }) => {    
     await pageObject.launchApplication(environment.baseUrl);
-    await page.locator(threePointPageObject.retrieveoutputtextarea).type(data.author_state);
+    await page.locator(threePointPageObject.retrieveoutputtextarea).type(data.fourauthor_state);
     await page.locator(threePointPageObject.modedropdown).selectOption('test');
     await page.locator(threePointPageObject.copytoinput).click();
     await pageObject.clickOnLoadAPIButton();
-    const icon = page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.threepointshadertool);
+    await page.waitForLoadState("networkidle");
+    await page.waitForTimeout(3000);
+    const icon = page.frameLocator(threePointPageObject. whole_Iframe).locator(fourPointPageObject.fourpointshadertool);
     await (icon).click();
-    expect (page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.txt_Pt1_of_3)).toBeVisible();
-    expect (page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.txt_Pt2_of_3)).toBeVisible();
-    expect (page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.txt_Pt3_of_3)).toBeVisible();
+    expect (page.frameLocator(threePointPageObject. whole_Iframe).locator(fourPointPageObject.txt_coordinates)).toBeVisible();
+    expect (page.frameLocator(threePointPageObject. whole_Iframe).locator(fourPointPageObject.txt_Pt1_of_4)).toBeVisible();
+    expect (page.frameLocator(threePointPageObject. whole_Iframe).locator(fourPointPageObject.txt_Pt2_of_4)).toBeVisible();
+    expect (page.frameLocator(threePointPageObject. whole_Iframe).locator(fourPointPageObject.txt_Pt3_of_4)).toBeVisible();
+    expect (page.frameLocator(threePointPageObject. whole_Iframe).locator(fourPointPageObject.txt_Pt4_of_4)).toBeVisible();
+    await (page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.btn_close)).click();
     await page.waitForTimeout(5000);  
   });
 
-  test('clicking 3 point shader tool and presence of X and Y letter ', async ({ page }) => {    
+  test('clicking 4 point shader tool and check for the presence of X and Y Label for all the input boxes', async ({ page }) => {    
     await pageObject.launchApplication(environment.baseUrl);
-    await page.locator(threePointPageObject.retrieveoutputtextarea).type(data.author_state);
+    await page.locator(threePointPageObject.retrieveoutputtextarea).type(data.fourauthor_state);
     await page.locator(threePointPageObject.modedropdown).selectOption('test');
     await page.locator(threePointPageObject.copytoinput).click();
     await pageObject.clickOnLoadAPIButton();
-    const icon = page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.threepointshadertool);
+    await page.waitForLoadState("networkidle");
+    await page.waitForTimeout(3000);
+    const icon = page.frameLocator(threePointPageObject. whole_Iframe).locator(fourPointPageObject.fourpointshadertool);
     await (icon).click();
     expect (page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.txt_X).nth(0)).toBeVisible();
     expect (page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.txt_X).nth(1)).toBeVisible();
     expect (page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.txt_X).nth(2)).toBeVisible();
+    expect (page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.txt_X).nth(3)).toBeVisible();
     expect (page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.txt_Y).nth(0)).toBeVisible();
     expect (page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.txt_Y).nth(1)).toBeVisible();
     expect (page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.txt_Y).nth(2)).toBeVisible();
+    expect (page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.txt_Y).nth(3)).toBeVisible();
     await page.waitForTimeout(5000);  
   });
 
-  test('clicking 3 point shader tool and presence of editable X and Y input box ', async ({ page }) => {    
+  test('clicking 4 point shader tool and check for the  presence of enabled and disabled X and Y input boxes', async ({ page }) => {    
     await pageObject.launchApplication(environment.baseUrl);
-    await page.locator(threePointPageObject.retrieveoutputtextarea).type(data.author_state);
+    await page.locator(threePointPageObject.retrieveoutputtextarea).type(data.fourauthor_state);
     await page.locator(threePointPageObject.modedropdown).selectOption('test');
     await page.locator(threePointPageObject.copytoinput).click();
     await pageObject.clickOnLoadAPIButton();
-    const icon = page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.threepointshadertool);
+    await page.waitForLoadState("networkidle");
+    await page.waitForTimeout(3000);
+    const icon = page.frameLocator(threePointPageObject. whole_Iframe).locator(fourPointPageObject.fourpointshadertool);
     await (icon).click();
     expect (page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.XYinput_Box).nth(0)).toBeVisible();
     expect (page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.XYinput_Box).nth(0)).toBeEditable();
@@ -351,16 +381,22 @@ test.beforeEach(async ({ page }) => {
     expect (page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.XYinput_Box).nth(4)).toBeDisabled();
     expect (page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.XYinput_Box).nth(5)).toBeVisible();
     expect (page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.XYinput_Box).nth(5)).toBeDisabled();
+    expect (page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.XYinput_Box).nth(6)).toBeVisible();
+    expect (page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.XYinput_Box).nth(6)).toBeDisabled();
+    expect (page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.XYinput_Box).nth(7)).toBeVisible();
+    expect (page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.XYinput_Box).nth(7)).toBeDisabled();
     await page.waitForTimeout(5000);  
   });
 
-  test('clicking 3 point shader tool and Validating X coordinates with Done & Clear button Validation', async ({ page }) => {    
+  test('clicking 4 point shader tool and Validating X coordinates with Done & Clear button Validation', async ({ page }) => {    
     await pageObject.launchApplication(environment.baseUrl);
-    await page.locator(threePointPageObject.retrieveoutputtextarea).type(data.author_state);
+    await page.locator(threePointPageObject.retrieveoutputtextarea).type(data.fourauthor_state);
     await page.locator(threePointPageObject.modedropdown).selectOption('test');
     await page.locator(threePointPageObject.copytoinput).click();
     await pageObject.clickOnLoadAPIButton();
-    const icon = page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.threepointshadertool);
+    await page.waitForLoadState("networkidle");
+    await page.waitForTimeout(3000);
+    const icon = page.frameLocator(threePointPageObject. whole_Iframe).locator(fourPointPageObject.fourpointshadertool);
     await (icon).click();
     await page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.XYinput_Box).nth(0).fill('800');
     expect (page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.txt_outsidegraphingArea)).toBeVisible();
@@ -379,15 +415,17 @@ test.beforeEach(async ({ page }) => {
 
  } )  ;
 
- test('clicking 3 point shader tool and Validating Y coordinates with Done & Clear button Validation ', async ({ page }) => {    
-  await pageObject.launchApplication(environment.baseUrl);
-  await page.locator(threePointPageObject.retrieveoutputtextarea).type(data.author_state);
-  await page.locator(threePointPageObject.modedropdown).selectOption('test');
-  await page.locator(threePointPageObject.copytoinput).click();
-  await pageObject.clickOnLoadAPIButton();
-  const icon = page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.threepointshadertool);
-  await (icon).click();
-  await page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.XYinput_Box).nth(1).fill('800');
+ test('clicking 4 point shader tool and Validating Y coordinates with Done & Clear button Validation', async ({ page }) => {    
+    await pageObject.launchApplication(environment.baseUrl);
+    await page.locator(threePointPageObject.retrieveoutputtextarea).type(data.fourauthor_state);
+    await page.locator(threePointPageObject.modedropdown).selectOption('test');
+    await page.locator(threePointPageObject.copytoinput).click();
+    await pageObject.clickOnLoadAPIButton();
+    await page.waitForLoadState("networkidle");
+    await page.waitForTimeout(3000);
+    const icon = page.frameLocator(threePointPageObject. whole_Iframe).locator(fourPointPageObject.fourpointshadertool);
+    await (icon).click();
+    await page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.XYinput_Box).nth(1).fill('800');
   expect (page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.txt_outsidegraphingArea)).toBeVisible();
   await page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.XYinput_Box).nth(1).fill('-400');
   expect (page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.txt_minvalue)).toBeVisible();
@@ -401,18 +439,19 @@ test.beforeEach(async ({ page }) => {
     expect (page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.btn_done)).toBeDisabled();
     expect (page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.btn_clear)).toBeVisible();
     expect (page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.btn_clear)).toBeDisabled();
-} )  ;
+});
 
-
-test('clicking 3 point shader tool and filling all the coordinates with Done & Clear button Validation ', async ({ page }) => {    
-  await pageObject.launchApplication(environment.baseUrl);
-  await page.locator(threePointPageObject.retrieveoutputtextarea).type(data.author_state);
-  await page.locator(threePointPageObject.modedropdown).selectOption('test');
-  await page.locator(threePointPageObject.copytoinput).click();
-  await pageObject.clickOnLoadAPIButton();
-  const icon = page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.threepointshadertool);
-  await (icon).click();
-  await page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.XYinput_Box).nth(0).fill('30');
+test('clicking 4 point shader tool and filling all the coordinates with Done & Clear button Validation', async ({ page }) => {    
+    await pageObject.launchApplication(environment.baseUrl);
+    await page.locator(threePointPageObject.retrieveoutputtextarea).type(data.fourauthor_state);
+    await page.locator(threePointPageObject.modedropdown).selectOption('test');
+    await page.locator(threePointPageObject.copytoinput).click();
+    await pageObject.clickOnLoadAPIButton();
+    await page.waitForLoadState("networkidle");
+    await page.waitForTimeout(3000);
+    const icon = page.frameLocator(threePointPageObject. whole_Iframe).locator(fourPointPageObject.fourpointshadertool);
+    await (icon).click();
+    await page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.XYinput_Box).nth(0).fill('30');
   expect (page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.XYinput_Box).nth(0)).toHaveValue('30');
   await page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.XYinput_Box).nth(1).fill('60');
   expect (page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.XYinput_Box).nth(1)).toHaveValue('60');
@@ -424,59 +463,100 @@ test('clicking 3 point shader tool and filling all the coordinates with Done & C
   expect (page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.XYinput_Box).nth(4)).toHaveValue('70');
   await page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.XYinput_Box).nth(5).fill('20');
   expect (page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.XYinput_Box).nth(5)).toHaveValue('20');
+  expect (page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.btn_done)).toBeDisabled();
+  expect (page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.btn_clear)).toBeDisabled();
+  await page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.XYinput_Box).nth(6).fill('40');
+  expect (page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.XYinput_Box).nth(6)).toHaveValue('40');
+  await page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.XYinput_Box).nth(7).fill('90');
+  expect (page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.XYinput_Box).nth(7)).toHaveValue('90');
   expect (page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.btn_done)).toBeEnabled();
   expect (page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.btn_clear)).toBeEnabled();
 
 });
 
-test('Clear & Done button Validation ', async ({ page }) => {    
-  await pageObject.launchApplication(environment.baseUrl);
-  await page.locator(threePointPageObject.retrieveoutputtextarea).type(data.author_state);
-  await page.locator(threePointPageObject.modedropdown).selectOption('test');
-  await page.locator(threePointPageObject.copytoinput).click();
-  await pageObject.clickOnLoadAPIButton();
-  const icon = page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.threepointshadertool);
-  await (icon).click();
-  await page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.XYinput_Box).nth(0).fill('30');
+test('Clear & Done button Validation', async ({ page }) => {    
+    await pageObject.launchApplication(environment.baseUrl);
+    await page.locator(threePointPageObject.retrieveoutputtextarea).type(data.fourauthor_state);
+    await page.locator(threePointPageObject.modedropdown).selectOption('test');
+    await page.locator(threePointPageObject.copytoinput).click();
+    await pageObject.clickOnLoadAPIButton();
+    await page.waitForLoadState("networkidle");
+    await page.waitForTimeout(3000);
+    const icon = page.frameLocator(threePointPageObject. whole_Iframe).locator(fourPointPageObject.fourpointshadertool);
+    await (icon).click();
+    await page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.XYinput_Box).nth(0).fill('30');
   await page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.XYinput_Box).nth(1).fill('40');
   await page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.XYinput_Box).nth(2).fill('50');
   await page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.XYinput_Box).nth(3).fill('60');
   await page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.XYinput_Box).nth(4).fill('70');
   await page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.XYinput_Box).nth(5).fill('80');
+  await page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.XYinput_Box).nth(6).fill('90');
+  await page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.XYinput_Box).nth(7).fill('100');
+  await page.waitForTimeout(3000);
   await page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.btn_clear).click();
+  await page.waitForTimeout(3000);
   expect (page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.btn_done)).toBeDisabled();
   expect (page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.btn_clear)).toBeDisabled();
+  expect (page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.XYinput_Box).nth(0)).toBeEnabled();
+  expect (page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.XYinput_Box).nth(1)).toBeEnabled();
+  expect (page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.XYinput_Box).nth(2)).toBeDisabled();
 });
 
-
-
-test.only('Scoring 100%', async ({ page }) => {    
-  await pageObject.launchApplication(environment.baseUrl);
-  await page.locator(threePointPageObject.retrieveoutputtextarea).type(data.author_state);
-  await page.locator(threePointPageObject.modedropdown).selectOption('test');
-  await page.locator(threePointPageObject.copytoinput).click();
-  await pageObject.clickOnLoadAPIButton();
-  const icon = page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.threepointshadertool);
-  await (icon).click();
-  expect(page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.txt_3point_solution)).toBeVisible();
-  await page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.XYinput_Box).nth(0).fill('85');
-  await page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.XYinput_Box).nth(1).fill('45');
-  await page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.XYinput_Box).nth(2).fill('75');
-  await page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.XYinput_Box).nth(3).fill('35');
-  await page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.XYinput_Box).nth(4).fill('95');
-  await page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.XYinput_Box).nth(5).fill('35');
-  await page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.btn_done).click();
-  expect(await threePointPageObject.getPolygonAttributeByLocator("stroke-width",threePointPageObject.threeShader_1)).toEqual("3");
-  expect(await threePointPageObject.getPolygonAttributeByLocator("stroke-dasharray",threePointPageObject.threeShader_1)).toEqual("0,4")
-  await page.locator(threePointPageObject.retrieveoutput).click();
+test.only('Scoring 100% and verifying the attributes', async ({ page }) => {    
+    await pageObject.launchApplication(environment.baseUrl);
+    await page.locator(threePointPageObject.retrieveoutputtextarea).type(data.fourauthor_state);
+    await page.locator(threePointPageObject.modedropdown).selectOption('test');
+    await page.locator(threePointPageObject.copytoinput).click();
+    await pageObject.clickOnLoadAPIButton();
+    await page.waitForLoadState("networkidle");
+    await page.waitForTimeout(3000);
+    expect(page.frameLocator(threePointPageObject. whole_Iframe).locator(fourPointPageObject.txt_4point_sol)).toBeVisible();
+    const icon = page.frameLocator(threePointPageObject. whole_Iframe).locator(fourPointPageObject.fourpointshadertool);
+    await (icon).click();
+    await page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.XYinput_Box).nth(0).fill('20');
+  await page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.XYinput_Box).nth(1).fill('15');
+  await page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.XYinput_Box).nth(2).fill('30');
+  await page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.XYinput_Box).nth(3).fill('15');
+  await page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.XYinput_Box).nth(4).fill('30');
+  await page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.XYinput_Box).nth(5).fill('5');
+  await page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.XYinput_Box).nth(6).fill('20');
+  await page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.XYinput_Box).nth(7).fill('5');
+  await page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.XYinput_Box).nth(7).evaluate(e => e.blur());
   await page.waitForTimeout(3000);
+  await page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.btn_done).click();
+  await page.waitForTimeout(5000);
+  expect(await threePointPageObject.getPolygonAttributeByLocator("stroke-width",fourPointPageObject.fourShader_1)).toEqual("2");
+  expect(await threePointPageObject.getPolygonAttributeByLocator("stroke-dasharray",fourPointPageObject.fourShader_1)).toEqual("6,2")
+  await page.locator(threePointPageObject.retrieveoutput).click();
+  await page.waitForTimeout(6000);
   expect (page.locator(threePointPageObject.score_area)).toHaveValue('100');
 });
 
+  
+
+
+ 
+
+
+  
+  
+  
+
+  
+ 
+  
+
+  
+  
+ 
+   
+  
+  
+
+  
 
 
 
 
-
-
+  
 

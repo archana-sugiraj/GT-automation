@@ -93,16 +93,25 @@ test('Check for the presence of exact question view 3 point shader in Solution V
     await threePointPageObject.clickOnOptionButton('Three point shader');
     await threePointPageObject.plotshaderOnGraph("Three point shader");
   
-    //New values for x1 and y1
+    //New values for x and y
     const x1Pos = "60";
     const y1Pos = "55";
+    const x2Pos = "10";
+    const y2Pos = "25";
+    const x3Pos = "30";
+    const y3Pos = "65";
   
     //change the x1 and y1 in the question view form elements to the above values
     await page.frameLocator(pageObject.grapfIframe).locator('.form-control').nth(0).fill(x1Pos);
     await page.frameLocator(pageObject.grapfIframe).locator('.form-control').nth(1).fill(y1Pos);
+    await page.frameLocator(pageObject.grapfIframe).locator('.form-control').nth(2).fill(x2Pos);
+    await page.frameLocator(pageObject.grapfIframe).locator('.form-control').nth(3).fill(y2Pos);
+    await page.frameLocator(pageObject.grapfIframe).locator('.form-control').nth(4).fill(x3Pos);
+    await page.frameLocator(pageObject.grapfIframe).locator('.form-control').nth(5).fill(y3Pos);
+    await page.frameLocator(pageObject.grapfIframe).locator('.form-control').nth(5).evaluate(e => e.blur());
   
     //shift the focus to next elements to amend the changes in the graph
-    await page.frameLocator(pageObject.grapfIframe).locator('.form-control').nth(2).click();
+    // await page.frameLocator(pageObject.grapfIframe).locator('.form-control').nth(2).click();
   
     //Get the pixel values of first coordinate of x1, y1
     var pixX1 = await page.frameLocator(pageObject.grapfIframe).locator(threePointPageObject.firstPointOnThreeShader).getAttribute("cx");
@@ -115,6 +124,24 @@ test('Check for the presence of exact question view 3 point shader in Solution V
     //Compare the calculated coordinate values of x1, y1 to the input values of x1,y1
     expect(await returnx1y1Coordinates.x).toEqual(Number(x1Pos));
     expect(await returnx1y1Coordinates.y).toEqual(Number(y1Pos));
+
+
+    var pixX2 = await page.frameLocator(pageObject.grapfIframe).locator(threePointPageObject.secondPointOnThreeShader).getAttribute("cx");
+    var pixY2 = await page.frameLocator(pageObject.grapfIframe).locator(threePointPageObject.secondPointOnThreeShader).getAttribute("cy");
+    const pix_x2y2 = { x: pixX2, y: pixY2 };
+    const returnx2y2Coordinates = await threePointPageObject.PxToCo(pix_x2y2);
+    expect(await returnx2y2Coordinates.x).toEqual(Number(x2Pos));
+    expect(await returnx2y2Coordinates.y).toEqual(Number(y2Pos));
+
+
+    var pixX3 = await page.frameLocator(pageObject.grapfIframe).locator(threePointPageObject.threePointOnThreeShader).getAttribute("cx");
+    var pixY3 = await page.frameLocator(pageObject.grapfIframe).locator(threePointPageObject.threePointOnThreeShader).getAttribute("cy");
+    const pix_x3y3 = { x: pixX3, y: pixY3 };
+    const returnx3y3Coordinates = await threePointPageObject.PxToCo(pix_x3y3);
+    expect(await returnx3y3Coordinates.x).toEqual(Number(x3Pos));
+    expect(await returnx3y3Coordinates.y).toEqual(Number(y3Pos));
+
+    
 });
 
 test('Check for different style of 3 point shader', async ({ page }) => {    
@@ -148,9 +175,12 @@ test("Check for different width of 3 point shader", async ({ page }) => {
   await pageObject.clickOnLoadAPIButton();
   await threePointPageObject.clickOnOptionButton('Three point shader');
   await threePointPageObject.plotshaderOnGraph("Three point shader");
-  const bothIframes=page.frameLocator(threePointPageObject.whole_Iframe).locator(threePointPageObject.color);
-  console.log("ck");
-  await bothIframes.locator(threePointPageObject.colordropdown).click();
+  await page.frameLocator(threePointPageObject.whole_Iframe).locator(threePointPageObject.colordropdown).nth(2).click();
+  await page.waitForTimeout(3000);
+  await page.frameLocator(threePointPageObject.whole_Iframe).locator(threePointPageObject.color_close).nth(3).click();
+  await page.waitForTimeout(5000);
+  
+  
  });
 
  test("Check for ShowHide button of 3 point shader", async ({ page }) => {
@@ -158,8 +188,10 @@ test("Check for different width of 3 point shader", async ({ page }) => {
   await pageObject.clickOnLoadAPIButton();
   await threePointPageObject.clickOnOptionButton('Three point shader');
   await threePointPageObject.plotshaderOnGraph("Three point shader");
-  const bothIframes=page.frameLocator(threePointPageObject.whole_Iframe).locator(threePointPageObject.showHide);
-  await bothIframes.click();
+  await page.waitForTimeout(5000);
+  await page.frameLocator(threePointPageObject.whole_Iframe).locator(threePointPageObject.showHide).nth(4).click();
+  await page.waitForTimeout(5000);
+  await page.frameLocator(threePointPageObject.whole_Iframe).locator(threePointPageObject.showHide).nth(4).click();  
   await page.waitForTimeout(5000);
   
  });
@@ -227,6 +259,7 @@ test('Check for Special character Appearance of 3 point shader Text', async ({ p
   const bothIframes=page.frameLocator(threePointPageObject.whole_Iframe).locator(threePointPageObject.splCharPopupButton);
   expect (bothIframes).toBeVisible();
   await bothIframes.click();
+  await page.frameLocator(threePointPageObject.whole_Iframe).locator(threePointPageObject.splchr_close).click();
 });
 
 test('Check for Currency Appearance of 3 point shader Text', async ({ page }) => {
@@ -239,6 +272,7 @@ test('Check for Currency Appearance of 3 point shader Text', async ({ page }) =>
   const currencycharacters=page.frameLocator(threePointPageObject.whole_Iframe).locator(threePointPageObject.currencytab);
   expect (currencycharacters).toBeVisible();  
   await currencycharacters.click();
+  await page.frameLocator(threePointPageObject.whole_Iframe).locator(threePointPageObject.splchr_close).click();
 });
 
 test('Check for Math Appearance of 3 point shader Text', async ({ page }) => {
@@ -251,6 +285,7 @@ test('Check for Math Appearance of 3 point shader Text', async ({ page }) => {
   const mathSymbols=page.frameLocator(threePointPageObject.whole_Iframe).locator(threePointPageObject.mathtab);
   expect (mathSymbols).toBeVisible();
   await mathSymbols.click();
+  await page.frameLocator(threePointPageObject.whole_Iframe).locator(threePointPageObject.splchr_close).click();
   
 });
 
@@ -264,6 +299,7 @@ test('Check for Greek Appearance of 3 point shader Text', async ({ page }) => {
   const greeksymbols=page.frameLocator(threePointPageObject.whole_Iframe).locator(threePointPageObject.greektab);
   expect (greeksymbols).toBeVisible();  
   await greeksymbols.click();
+  await page.frameLocator(threePointPageObject.whole_Iframe).locator(threePointPageObject.splchr_close).click();
 });
 
 

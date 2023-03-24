@@ -24,19 +24,23 @@ export class ThreePointPageObject {
   text_Iframe = '#mce_0_ifr';
   text_solIframe = '[allowtransparency="true"]';
   title ="//body[text()='ThreePointShader 1']";  
-  Bold='[aria-label="Bold"]';
+  Bold ='[aria-label="Bold"]';
+  Italic ='[aria-label="Italic"]';
   tinymce ="//body[text() = 'ThreePointShader 1']";
   solutionviewtab='span:has-text("Solution View")';  
   questionviewtab='span:has-text("Question View")';
   buttonpanel ="#mceu_6";
   splCharPopupButton ="#mceu_4-button";
+  splchr_close = ".dpg-icon-system-close-white";
   currencytab ="//span[text()='Currency']";
   mathtab ="//span[text()='Math']";
   greektab ="//span[text()='Greek']";
   color = "//label[text()='Color:']";
-  colordropdown = '.picker-dropdown';
-  colorpallette = "//label[text()='Color Picker']";
-  showHide = "//label[text()='Show/Hide Points:']";
+  colordropdown = ".dpg-icon-dropdown-arrow-down";
+  //color_close = ".dpg-icon-system-close";
+  color_close = ".ms-auto";
+  color_choose = "#9e009e";
+  showHide = ".ms-3";
   retrieveoutput = ('button:text("Retrieve Output")');  
   copytoinput = ('button:text("<- copy ^ to input")');
   modedropdown = 'select[name="mode_select"]';
@@ -91,12 +95,13 @@ export class ThreePointPageObject {
  txt_Success = ".alert-success";
  txt_Correct = "//span[text()='Correct']";
  pregrade_Icon = "#Symbols";
- pregrade_Text = "//span[text()='ThreePointShader 2']";
+ pregrade_Text = ".m-1";
  txt_alert = ".alert-info";
  txt_Incorrect = "//span[text()='Incorrect']";
  txt_warning = ".alert-warning";
  txt_Incomplete = "//span[text()='Incomplete']";
  txt_Incomplete1 = "//span[text()='Incorrect']";
+ txt_coordinates = "//label[text()='Coordinates']";
  
 
 

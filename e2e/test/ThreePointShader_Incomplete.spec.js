@@ -13,7 +13,7 @@ test.beforeEach(async ({ page }) => {
    threePointPageObject = new ThreePointPageObject(page);
   });
 
-test('Design Mode to Post Test Mode --> SAD Flow', async ({ page }) => {    
+test('Design Mode to Post Test Mode --> Incomplete Flow', async ({ page }) => {    
 
             //Design Mode
     await pageObject.launchApplication(environment.baseUrl);

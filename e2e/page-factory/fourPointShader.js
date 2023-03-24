@@ -18,7 +18,16 @@ export class FourPointPageObject {
   secondPointOnFourShader_2 = '//*[@id="FourShader_2_Point_1"]';
   threePointOnFourShader_2 = '//*[@id="FourShader_2_Point_2"]'; 
   fourPointOnFourShader_2 = '//*[@id="FourShader_2_Point_3"]'; 
-
+  tinymce = "//body[text() = 'FourPointShader 1']";
+  solutionviewtext = "//body[text()='FourPointShader 2']";
+txt_4point_sol = "//em[text()='FourPointShader 2']";
+fourpointshadertool = "#FourShader_2_item";
+fourpointshadertoolicon = '#four-vertices-icon';
+txt_Pt1_of_4 = "//label[text()=' Point 1 of 4']";
+ txt_Pt2_of_4 = "//label[text()=' Point 2 of 4']";
+ txt_Pt3_of_4 = "//label[text()=' Point 3 of 4']";
+ txt_Pt4_of_4 = "//label[text()=' Point 4 of 4']";
+ txt_coordinates = "//label[text()='Coordinates']";
     tabPanel =
     'div[role="tabpanel"] div:has-text("0 10 20 30 40 50 60 70 80 90 100 10 20 30 40 50 60 70 80 90 100")';
 

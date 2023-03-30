@@ -245,12 +245,12 @@ test('Check for Subscript Appearance of 4 point shader Text', async ({ page }) =
   await page.waitForLoadState("networkidle");
   await threePointPageObject.clickOnOptionButton('Four Point Shader');
   await threePointPageObject.plotshaderOnGraph("Four Point Shader");
-  const bothIframes=page.frameLocator(threePointPageObject. whole_Iframe).frameLocator(threePointPageObject.text_Iframe);
+  const bothIframes=page.frameLocator(threePointPageObject.whole_Iframe).frameLocator(threePointPageObject.text_Iframe);
   const originalText =await bothIframes.locator(fourPointPageObject.tinymce).allTextContents();
   await bothIframes.locator(fourPointPageObject.tinymce).selectText();
   await threePointPageObject.selectButtonById("mceu_2-button");
-  const originalTextAfterItalic =await bothIframes.locator(fourPointPageObject.tinymce).innerHTML();
-  expect(originalTextAfterItalic).toEqual("<sub>" + originalText + "</sub>");
+  const originalTextAfterSub = await bothIframes.locator(fourPointPageObject.tinymce).innerHTML();
+  expect(originalTextAfterSub).toEqual("<sub>" + originalText + "</sub>");
 });
 
 test('Check for Superscript Appearance of 4 point shader Text', async ({ page }) => {

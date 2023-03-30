@@ -33,6 +33,7 @@ test('Design Mode to Post Test Mode --> SAD Flow', async ({ page }) => {
     await page.frameLocator(pageObject.grapfIframe).locator(threePointPageObject.solutionviewtab).click(); 
     await threePointPageObject.clickOnOptionButton('Three point shader');
     await threePointPageObject.plotshaderOnGraph("Three point shader");
+    await page.waitForTimeout(3000);
     await page.frameLocator(pageObject.grapfIframe).locator('.form-control').nth(0).fill("85");
     await page.frameLocator(pageObject.grapfIframe).locator('.form-control').nth(1).fill("45");
     await page.frameLocator(pageObject.grapfIframe).locator('.form-control').nth(2).fill("75");

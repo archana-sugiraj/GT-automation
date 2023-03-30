@@ -26,7 +26,7 @@ export class ThreePointPageObject {
   title ="//body[text()='ThreePointShader 1']";  
   Bold ='[aria-label="Bold"]';
   Italic ='[aria-label="Italic"]';
-  tinymce ="//body[text() = 'ThreePointShader 1']";
+  tinymce = "#tinymce";
   solutionviewtab='span:has-text("Solution View")';  
   questionviewtab='span:has-text("Question View")';
   buttonpanel ="#mceu_6";

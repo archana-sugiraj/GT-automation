@@ -18,7 +18,7 @@ export class FourPointPageObject {
   secondPointOnFourShader_2 = '//*[@id="FourShader_2_Point_1"]';
   threePointOnFourShader_2 = '//*[@id="FourShader_2_Point_2"]'; 
   fourPointOnFourShader_2 = '//*[@id="FourShader_2_Point_3"]'; 
-  tinymce = "//body[text() = 'FourPointShader 1']";
+  tinymce = "#tinymce";
   solutionviewtext = "//body[text()='FourPointShader 2']";
 txt_4point_sol = "//em[text()='FourPointShader 2']";
 fourpointshadertool = "#FourShader_2_item";

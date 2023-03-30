@@ -58,7 +58,7 @@ test('Check for the presence of exact question view 3 point shader in Solution V
       expect(await page.frameLocator(pageObject.grapfIframe).locator(threePointPageObject.threePointOnThreeShader_2)).toBeVisible();
   });
 
- test("Check for the coordinates of 3 point shader", async ({ page }) => {
+ test("Check for the coordinates of 3 point shader if it matches with the pixel values", async ({ page }) => {
     await pageObject.launchApplication(environment.baseUrl);
     await pageObject.clickOnLoadAPIButton();
     await threePointPageObject.clickOnOptionButton('Three point shader');

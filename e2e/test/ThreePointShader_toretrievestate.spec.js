@@ -47,8 +47,7 @@ await page.frameLocator('iframe[name="ext_012345678_1"]').locator('text=accordio
 await page.frameLocator(pageObject.grapfIframe).locator(threePointPageObject.link_Generate).click();
 await page.frameLocator(pageObject.grapfIframe).locator(threePointPageObject.btn_Save).click();
 await page.locator(threePointPageObject.retrieveoutput).click();
-
- await page.waitForTimeout(6000);
+await page.waitForTimeout(6000);
   });
 
   

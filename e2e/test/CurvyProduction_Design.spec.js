@@ -411,13 +411,13 @@ test('Plotting  CPP in both question and solution view and validating the input 
   await page.waitForTimeout(3000);
   await threePointPageObject.selectStyle("Dashed");
       await threePointPageObject.selectButtonByText("2px");
-      // const bothIframes1=page.frameLocator(threePointPageObject. whole_Iframe).frameLocator(threePointPageObject.text_Iframe).locator(fourPointPageObject.tinymce);
+      await page.waitForTimeout(3000);
+      // const bothIframes1 = await page.frameLocator(threePointPageObject. whole_Iframe).frameLocator(curvyProductionPageObject.tinymce1);
       // await page.waitForTimeout(3000);
-      // await bothIframes1.allTextContents();
-      // await bothIframes1.selectText();
+      // const originalTt1 = await bothIframes1.locator(curvyProductionPageObject.tinymce).allTextContents();
+      // await bothIframes1.locator(curvyProductionPageObject.tinymce).selectText();
       // await page.waitForTimeout(3000);
       // await threePointPageObject.selectButtonById("mceu_1-button");
-      await page.waitForTimeout(2000);
   expect(page.frameLocator(fourPointPageObject.grapfIframe).locator(curvyProductionPageObject.PPC_Heading)).toBeVisible();
   expect(page.frameLocator(fourPointPageObject.grapfIframe).locator(curvyProductionPageObject.Qview)).toBeVisible();
   expect(page.frameLocator(fourPointPageObject.grapfIframe).locator(curvyProductionPageObject.Sview)).toBeVisible();
@@ -449,15 +449,15 @@ test('Plotting  CPP in both question and solution view and validating the input 
   await page.frameLocator(pageObject.grapfIframe).locator('.form-control').nth(6).evaluate(e => e.blur());
   
   await expect(page.frameLocator(pageObject.grapfIframe).locator(curvyProductionPageObject.curve_Whole)).toBeVisible();
-  await expect(page.frameLocator(pageObject.grapfIframe).locator(curvyProductionPageObject.curve2_Whole).nth(1)).toBeVisible();
-  await expect(page.frameLocator(pageObject.grapfIframe).locator(curvyProductionPageObject.curve_footprint).nth(0)).toBeVisible();
+  await expect(page.frameLocator(pageObject.grapfIframe).locator(curvyProductionPageObject.curve_Sol)).toBeVisible();
+  await expect(page.frameLocator(pageObject.grapfIframe).locator(curvyProductionPageObject.curve_Footprint)).toBeVisible();
   await page.frameLocator(fourPointPageObject.grapfIframe).locator(curvyProductionPageObject.footPrint).click();
   await page.waitForTimeout(2000);
   await expect(page.frameLocator(pageObject.grapfIframe).locator(curvyProductionPageObject.curve_Whole)).toBeVisible();
   await page.waitForTimeout(2000);
-  await expect(page.frameLocator(pageObject.grapfIframe).locator(curvyProductionPageObject.curve2_Whole).nth(1)).toBeVisible();
+  await expect(page.frameLocator(pageObject.grapfIframe).locator(curvyProductionPageObject.curve_Sol)).toBeVisible();
   await page.waitForTimeout(2000);
-  await expect(page.frameLocator(pageObject.grapfIframe).locator(curvyProductionPageObject.curve_footprint)).toBeHidden();
+  await expect(page.frameLocator(pageObject.grapfIframe).locator(curvyProductionPageObject.curve_Footprint)).toBeHidden();
   await page.waitForTimeout(2000);
   await page.frameLocator(pageObject.grapfIframe).locator(threePointPageObject.closebutton).nth(0).click();
   await page.frameLocator('iframe[name="ext_012345678_1"]').locator('text=accordion-closeGraph Description >> button').click();

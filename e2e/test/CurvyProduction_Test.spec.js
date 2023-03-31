@@ -30,7 +30,7 @@ test.beforeEach(async ({ page }) => {
     await page.waitForTimeout(5000);  
   });
 
-  test('Graph Summary,Instruction and Graph attributes Validation ', async ({ page }) => {   
+  test('Graph Summary,Instruction and Graph/style attributes Validation /  presence of CPPs ', async ({ page }) => {   
     await pageObject.launchApplication(environment.baseUrl);
     await page.locator(threePointPageObject.retrieveoutputtextarea).type(data.ppauthor_state);
     await page.locator(threePointPageObject.modedropdown).selectOption('test');
@@ -38,6 +38,14 @@ test.beforeEach(async ({ page }) => {
     await pageObject.clickOnLoadAPIButton();
     await page.waitForTimeout(5000); 
     await page.waitForLoadState("networkidle");
+    expect(page.frameLocator(threePointPageObject. whole_Iframe).locator(curvyProductionPageObject.curve_Whole)).toBeVisible();
+    expect(page.frameLocator(threePointPageObject. whole_Iframe).locator(curvyProductionPageObject.curve_Ans)).toBeVisible();
+    expect(page.frameLocator(threePointPageObject. whole_Iframe).locator(curvyProductionPageObject.curve_Footprint)).toBeHidden();
+    await page.waitForTimeout(2000); 
+    expect(await threePointPageObject.getPolygonAttributeByLocator("stroke-width",curvyProductionPageObject.curve_Whole)).toEqual("2");
+    expect(await threePointPageObject.getPolygonAttributeByLocator("stroke-dasharray",curvyProductionPageObject.curve_Whole)).toEqual("4,4");
+    expect(await threePointPageObject.getPolygonAttributeByLocator("stroke-width",curvyProductionPageObject.curve_Ans)).toEqual("2");
+    expect(await threePointPageObject.getPolygonAttributeByLocator("stroke-dasharray",curvyProductionPageObject.curve_Ans)).toEqual("4,4");
     expect(page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.txt_GraphSummary)).toBeVisible();
     expect(page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.txt_GraphSummary)).toBeEnabled();
     await page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.txt_GraphSummary).click();
@@ -65,7 +73,7 @@ test.beforeEach(async ({ page }) => {
 
   });
 
-  test.only('Check for the Tools,icon,text,input boxes', async ({ page }) => {   
+  test('Check for the Tools,icon,text,input boxes,undo,redo', async ({ page }) => {   
     await pageObject.launchApplication(environment.baseUrl);
     await page.locator(threePointPageObject.retrieveoutputtextarea).type(data.ppauthor_state);
     await page.locator(threePointPageObject.modedropdown).selectOption('test');
@@ -82,8 +90,7 @@ test.beforeEach(async ({ page }) => {
     expect(page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.txt_Redo)).toBeDisabled();
     expect(page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.txt_Reset)).toBeVisible();
     expect(page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.txt_Reset)).toBeDisabled();
-
-
+    
 
     expect(page.frameLocator(threePointPageObject. whole_Iframe).locator(curvyProductionPageObject.curvetext_btn)).toBeVisible();
     await(page.frameLocator(threePointPageObject. whole_Iframe).locator(curvyProductionPageObject.curvetext_btn)).click();
@@ -132,23 +139,68 @@ test.beforeEach(async ({ page }) => {
     await expect(page.frameLocator(pageObject.grapfIframe).locator('.form-control').nth(1)).toHaveValue("80");
     await expect(page.frameLocator(pageObject.grapfIframe).locator('.form-control').nth(2)).toHaveValue("80");
     await expect(page.frameLocator(pageObject.grapfIframe).locator('.form-control').nth(5)).toHaveValue("80");
-    await expect(page.frameLocator(pageObject.grapfIframe).locator('.form-control').nth(6)).toHaveValue("80");
-    
-
-
-
-
-
-    
-
-
-
-
-
-    
+    await expect(page.frameLocator(pageObject.grapfIframe).locator('.form-control').nth(6)).toHaveValue("80");    
     await page.waitForTimeout(2000);
-    await (page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.btn_close)).click();
+    await page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.btn_clear).click();
+    await expect(page.frameLocator(pageObject.grapfIframe).locator('.form-control').nth(5)).toHaveValue("80");
+    await expect(page.frameLocator(pageObject.grapfIframe).locator('.form-control').nth(6)).toHaveValue("80");
+    expect (page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.btn_done)).toBeDisabled();
+    expect (page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.btn_clear)).toBeDisabled();
+    expect(page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.txt_undo)).toBeDisabled();
+    expect(page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.txt_Redo)).toBeDisabled();
+    await page.frameLocator(pageObject.grapfIframe).locator('.form-control').nth(5).fill("40");
+    await page.frameLocator(pageObject.grapfIframe).locator('.form-control').nth(6).click();
+    expect (page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.btn_done)).toBeEnabled();
+    expect (page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.btn_clear)).toBeEnabled();
+    expect(page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.txt_undo)).toBeEnabled();
+    expect(page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.txt_Reset)).toBeEnabled();
 
+await page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.txt_undo).click();
+await expect(page.frameLocator(pageObject.grapfIframe).locator('.form-control').nth(5)).toHaveValue("80");
+expect(page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.txt_undo)).toBeDisabled();
+    expect(page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.txt_Redo)).toBeEnabled();
+    await page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.txt_Redo).click();
+    await expect(page.frameLocator(pageObject.grapfIframe).locator('.form-control').nth(5)).toHaveValue("40");
+    await page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.txt_Reset).click();
+
+expect(page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.Popup_Reset)).toBeVisible();
+    expect(page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.btn_cancel)).toBeVisible();
+    expect(page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.btn_YesProceed)).toBeVisible();
+    expect(page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.btn_cancel)).toBeEnabled();
+    expect(page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.btn_YesProceed)).toBeEnabled();
+    await page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.btn_cancel).click();
+    await expect(page.frameLocator(pageObject.grapfIframe).locator('.form-control').nth(5)).toHaveValue("40");
+    await expect(page.frameLocator(pageObject.grapfIframe).locator('.form-control').nth(6)).toHaveValue("80");
+    await page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.txt_Reset).click();
+    await page.waitForTimeout(5000);
+    // expect(page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.Popup_Reset)).toBeVisible();
+    // expect(page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.btn_cancel)).toBeVisible();
+    // expect(page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.btn_YesProceed)).toBeVisible();
+    await page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.btn_YesProceed).click();
+    expect (page.frameLocator(threePointPageObject. whole_Iframe).locator(curvyProductionPageObject.txt_coordinatebefore)).toBeHidden();
+    expect (page.frameLocator(threePointPageObject. whole_Iframe).locator(curvyProductionPageObject.txt_coordinateafter)).toBeHidden();
+
+
+    await page.waitForTimeout(5000);
     
-
   });
+
+  test('to retrieve the state', async ({ page }) => {    
+    await pageObject.launchApplication(environment.baseUrl);
+    await page.locator(threePointPageObject.retrieveoutputtextarea).type(data.ppauthor_state);
+    await page.locator(threePointPageObject.modedropdown).selectOption('test');
+    await page.locator(threePointPageObject.copytoinput).click();
+    await pageObject.clickOnLoadAPIButton();
+    await page.waitForTimeout(5000);  
+    await pageObject.clickOnLoadAPIButton();
+    await page.waitForTimeout(5000); 
+    await(page.frameLocator(threePointPageObject. whole_Iframe).locator(curvyProductionPageObject.curvetext_btn)).click();
+    await page.frameLocator(pageObject.grapfIframe).locator('.form-control').nth(5).fill("90");
+    await page.frameLocator(pageObject.grapfIframe).locator('.form-control').nth(6).fill("90");
+    await page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.btn_done).click();
+    await page.locator(threePointPageObject.retrieveoutput).click();
+    expect (page.locator(threePointPageObject.score_area)).toHaveValue('100');
+    await page.locator(threePointPageObject.copytoinput).click();
+    await page.waitForTimeout(6000);
+  });
+

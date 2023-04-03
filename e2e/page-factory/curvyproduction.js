@@ -29,4 +29,5 @@ export class CurvyProductionPageObject {
     tinymce1 = '#mce_5_ifr';
     grp_Summary = '//*[@data-automation-id="graph-description-btn"]';
     Coordinate_txt = "//label[text()='Coordinate']";
+    close_btn = '.dpg-icon-system-close-white';
 }

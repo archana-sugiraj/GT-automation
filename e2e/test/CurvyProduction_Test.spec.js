@@ -89,7 +89,8 @@ test.beforeEach(async ({ page }) => {
     expect(page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.txt_Redo)).toBeVisible();
     expect(page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.txt_Redo)).toBeDisabled();
     expect(page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.txt_Reset)).toBeVisible();
-    expect(page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.txt_Reset)).toBeDisabled();
+    await page.waitForTimeout(3000);
+    expect(page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.txt_Reset)).toBeEnabled();
     
 
     expect(page.frameLocator(threePointPageObject. whole_Iframe).locator(curvyProductionPageObject.curvetext_btn)).toBeVisible();
@@ -185,16 +186,36 @@ expect(page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointP
     
   });
 
-  test('to retrieve the state', async ({ page }) => {    
+  test.only('validating the input boxes and aslo to retrieve the state', async ({ page }) => {    
     await pageObject.launchApplication(environment.baseUrl);
     await page.locator(threePointPageObject.retrieveoutputtextarea).type(data.ppauthor_state);
     await page.locator(threePointPageObject.modedropdown).selectOption('test');
     await page.locator(threePointPageObject.copytoinput).click();
     await pageObject.clickOnLoadAPIButton();
     await page.waitForTimeout(5000);  
-    await pageObject.clickOnLoadAPIButton();
-    await page.waitForTimeout(5000); 
     await(page.frameLocator(threePointPageObject. whole_Iframe).locator(curvyProductionPageObject.curvetext_btn)).click();
+    await page.frameLocator(pageObject.grapfIframe).locator('.form-control').nth(5).fill('');
+    var helpMsg = await page.frameLocator(pageObject.grapfIframe).locator("#help-block-null").allTextContents();
+    expect(helpMsg[0]).toEqual('Please enter a value.');
+    await page.waitForTimeout(3000);
+    await page.frameLocator(pageObject.grapfIframe).locator('.form-control').nth(6).fill('');
+    var help1Msg = await page.frameLocator(pageObject.grapfIframe).locator("#help-block-null").allTextContents();
+    expect(help1Msg[0]).toEqual('Please enter a value.');
+    await page.waitForTimeout(3000);
+    await page.frameLocator(pageObject.grapfIframe).locator('.form-control').nth(5).fill("101");
+    var help2Msg = await page.frameLocator(pageObject.grapfIframe).locator("#help-block-null").allTextContents();
+    expect(help2Msg[0]).toEqual('You have entered a coordinate that exists outside the graphing area.');
+    await page.frameLocator(pageObject.grapfIframe).locator('.form-control').nth(6).fill("101");
+    var help3Msg = await page.frameLocator(pageObject.grapfIframe).locator("#help-block-null").allTextContents();
+    expect(help3Msg[0]).toEqual('You have entered a coordinate that exists outside the graphing area.');
+    await page.frameLocator(pageObject.grapfIframe).locator('.form-control').nth(5).fill("-1");
+    var help4Msg = await page.frameLocator(pageObject.grapfIframe).locator("#help-block-null").allTextContents();
+    expect(help4Msg[0]).toEqual('The value entered is less than the minimum coordinate system value.');
+    await page.waitForTimeout(3000);
+    await page.frameLocator(pageObject.grapfIframe).locator('.form-control').nth(6).fill("-1");
+    var help5Msg = await page.frameLocator(pageObject.grapfIframe).locator("#help-block-null").allTextContents();
+    expect(help5Msg[0]).toEqual('The value entered is less than the minimum coordinate system value.');
+    await page.waitForTimeout(3000);
     await page.frameLocator(pageObject.grapfIframe).locator('.form-control').nth(5).fill("90");
     await page.frameLocator(pageObject.grapfIframe).locator('.form-control').nth(6).fill("90");
     await page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.btn_done).click();

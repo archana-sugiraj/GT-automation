@@ -191,7 +191,7 @@ test.beforeEach(async ({ page }) => {
     await page.frameLocator(threePointPageObject.whole_Iframe).locator(threePointPageObject.splchr_close).click();
   });
   
-  test('Check for the alert message when the coordinates are out of range', async ({ page }) => {
+  test('Check for the alert message when the coordinates are out of range both in Question and Solution view', async ({ page }) => {
     await pageObject.launchApplication(environment.baseUrl);
     await pageObject.clickOnLoadAPIButton();
     await threePointPageObject.clickOnOptionButton('Curvy Production Possibility');
@@ -200,9 +200,32 @@ test.beforeEach(async ({ page }) => {
     await page.frameLocator(pageObject.grapfIframe).locator('.form-control').nth(1).fill('101');
     var helpMsg = await page.frameLocator(pageObject.grapfIframe).locator("#help-block-null").allTextContents();
     expect(helpMsg[0]).toEqual('You have entered a coordinate that exists outside the graphing area.');
+    await page.waitForTimeout(3000);
+    await page.frameLocator(pageObject.grapfIframe).locator('.form-control').nth(2).fill('101');
+    var help1Msg = await page.frameLocator(pageObject.grapfIframe).locator("#help-block-null").allTextContents();
+    expect(help1Msg[0]).toEqual('You have entered a coordinate that exists outside the graphing area.');
+    await page.frameLocator(pageObject.grapfIframe).locator(threePointPageObject.solutionviewtab).click(); 
+    await threePointPageObject.clickOnOptionButton('Curvy Production Possibility');
+    await threePointPageObject.plotshaderOnGraph("Curvy Production Possibility");
+    await page.waitForTimeout(3000);
+    await page.frameLocator(pageObject.grapfIframe).locator('.form-control').nth(1).fill('101');
+    var helpMsg = await page.frameLocator(pageObject.grapfIframe).locator("#help-block-null").allTextContents();
+    expect(helpMsg[0]).toEqual('You have entered a coordinate that exists outside the graphing area.');
+    await page.waitForTimeout(3000);
+    await page.frameLocator(pageObject.grapfIframe).locator('.form-control').nth(2).fill('101');
+    var help1Msg = await page.frameLocator(pageObject.grapfIframe).locator("#help-block-null").allTextContents();
+    expect(help1Msg[0]).toEqual('You have entered a coordinate that exists outside the graphing area.');
+    await page.waitForTimeout(3000);
+    await page.frameLocator(pageObject.grapfIframe).locator('.form-control').nth(5).fill('101');
+    var helpMsg = await page.frameLocator(pageObject.grapfIframe).locator("#help-block-null").allTextContents();
+    expect(helpMsg[0]).toEqual('You have entered a coordinate that exists outside the graphing area.');
+    await page.waitForTimeout(3000);
+    await page.frameLocator(pageObject.grapfIframe).locator('.form-control').nth(6).fill('101');
+    var help1Msg = await page.frameLocator(pageObject.grapfIframe).locator("#help-block-null").allTextContents();
+    expect(help1Msg[0]).toEqual('You have entered a coordinate that exists outside the graphing area.');
   });
   
-  test('Check for the alert message when the coordinates are null', async ({ page }) => {
+  test('Check for the alert message when the coordinates are null both in Question and Solution view', async ({ page }) => {
     await pageObject.launchApplication(environment.baseUrl);
     await pageObject.clickOnLoadAPIButton();
     await threePointPageObject.clickOnOptionButton('Curvy Production Possibility');
@@ -211,9 +234,34 @@ test.beforeEach(async ({ page }) => {
     var helpMsg = await page.frameLocator(pageObject.grapfIframe).locator("#help-block-null").allTextContents();
     expect(helpMsg[0]).toEqual('Please enter a value.');
     await page.waitForTimeout(3000);
+    await page.frameLocator(pageObject.grapfIframe).locator('.form-control').nth(2).fill('');
+    var helpMsg = await page.frameLocator(pageObject.grapfIframe).locator("#help-block-null").allTextContents();
+    expect(helpMsg[0]).toEqual('Please enter a value.');
+    await page.waitForTimeout(3000);
+    await page.frameLocator(pageObject.grapfIframe).locator(threePointPageObject.solutionviewtab).click(); 
+    await threePointPageObject.clickOnOptionButton('Curvy Production Possibility');
+    await threePointPageObject.plotshaderOnGraph("Curvy Production Possibility");
+    await page.waitForTimeout(3000);
+    await page.frameLocator(pageObject.grapfIframe).locator('.form-control').nth(1).fill('');
+    var helpMsg = await page.frameLocator(pageObject.grapfIframe).locator("#help-block-null").allTextContents();
+    expect(helpMsg[0]).toEqual('Please enter a value.');
+    await page.waitForTimeout(3000);
+    await page.frameLocator(pageObject.grapfIframe).locator('.form-control').nth(2).fill('');
+    var helpMsg = await page.frameLocator(pageObject.grapfIframe).locator("#help-block-null").allTextContents();
+    expect(helpMsg[0]).toEqual('Please enter a value.');
+    await page.waitForTimeout(3000);
+    await page.frameLocator(pageObject.grapfIframe).locator('.form-control').nth(5).fill('');
+    var helpMsg = await page.frameLocator(pageObject.grapfIframe).locator("#help-block-null").allTextContents();
+    expect(helpMsg[0]).toEqual('Please enter a value.');
+    await page.waitForTimeout(3000);
+    await page.frameLocator(pageObject.grapfIframe).locator('.form-control').nth(6).fill('');
+    var helpMsg = await page.frameLocator(pageObject.grapfIframe).locator("#help-block-null").allTextContents();
+    expect(helpMsg[0]).toEqual('Please enter a value.');
+    await page.waitForTimeout(3000);
+    
   });
   
-  test('Check for the alert message when the coordinates are less than 0', async ({ page }) => {
+  test('Check for the alert message when the coordinates are less than 0 both in Question and Solution view', async ({ page }) => {
     await pageObject.launchApplication(environment.baseUrl);
     await pageObject.clickOnLoadAPIButton();
     await threePointPageObject.clickOnOptionButton('Curvy Production Possibility');
@@ -222,6 +270,33 @@ test.beforeEach(async ({ page }) => {
     var helpMsg = await page.frameLocator(pageObject.grapfIframe).locator("#help-block-null").allTextContents();
     expect(helpMsg[0]).toEqual('The value entered is less than the minimum coordinate system value.');
     await page.waitForTimeout(3000);
+    await page.frameLocator(pageObject.grapfIframe).locator('.form-control').nth(2).fill('-4');
+    var helpMsg = await page.frameLocator(pageObject.grapfIframe).locator("#help-block-null").allTextContents();
+    expect(helpMsg[0]).toEqual('The value entered is less than the minimum coordinate system value.');
+    await page.waitForTimeout(3000);
+    await page.frameLocator(pageObject.grapfIframe).locator(threePointPageObject.solutionviewtab).click(); 
+    await threePointPageObject.clickOnOptionButton('Curvy Production Possibility');
+    await threePointPageObject.plotshaderOnGraph("Curvy Production Possibility");
+    await page.waitForTimeout(3000);
+    await page.frameLocator(pageObject.grapfIframe).locator('.form-control').nth(1).fill('-4');
+    var helpMsg = await page.frameLocator(pageObject.grapfIframe).locator("#help-block-null").allTextContents();
+    expect(helpMsg[0]).toEqual('The value entered is less than the minimum coordinate system value.');
+    await page.waitForTimeout(3000);
+    await page.frameLocator(pageObject.grapfIframe).locator('.form-control').nth(2).fill('-4');
+    var helpMsg = await page.frameLocator(pageObject.grapfIframe).locator("#help-block-null").allTextContents();
+    expect(helpMsg[0]).toEqual('The value entered is less than the minimum coordinate system value.');
+    await page.waitForTimeout(3000);
+
+    await page.waitForTimeout(3000);
+    await page.frameLocator(pageObject.grapfIframe).locator('.form-control').nth(5).fill('-4');
+    var helpMsg = await page.frameLocator(pageObject.grapfIframe).locator("#help-block-null").allTextContents();
+    expect(helpMsg[0]).toEqual('The value entered is less than the minimum coordinate system value.');
+    await page.waitForTimeout(3000);
+    await page.frameLocator(pageObject.grapfIframe).locator('.form-control').nth(6).fill('-4');
+    var helpMsg = await page.frameLocator(pageObject.grapfIframe).locator("#help-block-null").allTextContents();
+    expect(helpMsg[0]).toEqual('The value entered is less than the minimum coordinate system value.');
+    await page.waitForTimeout(3000);
+
   });
 
   test("Check for ShowHide button of CPP", async ({ page }) => {

@@ -20,7 +20,7 @@ test.beforeEach(async ({ page }) => {
    curvyProductionPageObject = new CurvyProductionPageObject(page);
   });
 
-  test('Graph Summary,other attributes Validation ', async ({ page }) => {
+  test('Graph Summary,other attributes Validation including the style and presence of CPP', async ({ page }) => {
     
     await pageObject.launchApplication(environment.baseUrl);
     await page.locator(threePointPageObject.retrieveoutputtextarea).type(data.ppstudent_state);
@@ -47,12 +47,30 @@ test.beforeEach(async ({ page }) => {
      const expsuccessmsg = ["SuccessAnswer is complete and entirely correct"];
      expect(receivedsuccessmsg).toStrictEqual(expsuccessmsg);
      await page.waitForTimeout(5000);
+     expect(await threePointPageObject.getPolygonAttributeByLocator("stroke-width",curvyProductionPageObject.curve_Whole)).toEqual("2");
+    expect(await threePointPageObject.getPolygonAttributeByLocator("stroke-dasharray",curvyProductionPageObject.curve_Whole)).toEqual("4,4");
+    expect(await threePointPageObject.getPolygonAttributeByLocator("stroke-width",curvyProductionPageObject.curve_Ans)).toEqual("2");
+    expect(await threePointPageObject.getPolygonAttributeByLocator("stroke-dasharray",curvyProductionPageObject.curve_Ans)).toEqual("4,4");
      expect(page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.txt_Correct)).toBeVisible();
     expect(page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.pregrade_Icon)).toBeVisible();
     await page.waitForTimeout(3000);
     expect(page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.pregrade_Text)).toBeVisible();
     await (page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.pregrade_Text)).click();
     expect(page.frameLocator(threePointPageObject. whole_Iframe).locator(curvyProductionPageObject.Coordinate_txt)).toBeVisible();
-    
+    expect(page.frameLocator(threePointPageObject. whole_Iframe).locator(curvyProductionPageObject.Coordinate_txt)).toBeVisible();
+    await page.waitForTimeout(5000);
+    expect(page.frameLocator(pageObject.grapfIframe).locator('.form-control').nth(0)).toBeVisible();
+    expect(page.frameLocator(pageObject.grapfIframe).locator('.form-control').nth(1)).toBeVisible();
+    expect(page.frameLocator(pageObject.grapfIframe).locator('.form-control').nth(2)).toBeVisible();
+    expect(page.frameLocator(pageObject.grapfIframe).locator('.form-control').nth(3)).toBeVisible();
+    expect(page.frameLocator(pageObject.grapfIframe).locator('.form-control').nth(0)).toBeDisabled();
+    expect(page.frameLocator(pageObject.grapfIframe).locator('.form-control').nth(1)).toBeDisabled();
+    expect(page.frameLocator(pageObject.grapfIframe).locator('.form-control').nth(2)).toBeDisabled();
+    expect(page.frameLocator(pageObject.grapfIframe).locator('.form-control').nth(3)).toBeDisabled();
+    expect(page.frameLocator(pageObject.grapfIframe).locator('.form-control').nth(1)).toHaveValue("90");
+    expect(page.frameLocator(pageObject.grapfIframe).locator('.form-control').nth(2)).toHaveValue("90");
+    await page.frameLocator(pageObject.grapfIframe).locator(curvyProductionPageObject.close_btn).click();
+
+
  
   });

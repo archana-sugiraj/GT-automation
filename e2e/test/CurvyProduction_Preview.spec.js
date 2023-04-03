@@ -20,7 +20,7 @@ test.beforeEach(async ({ page }) => {
    curvyProductionPageObject = new CurvyProductionPageObject(page);
   });
 
-  test('Launching CPP in preview mode using the state and verifying the Graph summary/ attributes and the presence of CPPs ', async ({ page }) => {    
+  test.only('Launching CPP in preview mode using the state and verifying the Graph summary/ attributes and the presence of CPPs ', async ({ page }) => {    
     await pageObject.launchApplication(environment.baseUrl);
     await page.locator(threePointPageObject.retrieveoutputtextarea).type(data.ppauthor_state);
     await page.locator(threePointPageObject.modedropdown).selectOption('preview');
@@ -44,6 +44,10 @@ test.beforeEach(async ({ page }) => {
     expect(await threePointPageObject.getPolygonAttributeByLocator("stroke-width",curvyProductionPageObject.curve_Whole)).toEqual("2");
     expect(await threePointPageObject.getPolygonAttributeByLocator("stroke-dasharray",curvyProductionPageObject.curve_Whole)).toEqual("4,4");
     expect(page.frameLocator(threePointPageObject. whole_Iframe).locator(curvyProductionPageObject.curve_Sol)).toBeVisible();
+    
+    expect(await threePointPageObject.getPolygonAttributeByLocator("stroke-width",curvyProductionPageObject.curve_Sol)).toEqual("2");
+    expect(await threePointPageObject.getPolygonAttributeByLocator("stroke-dasharray",curvyProductionPageObject.curve_Sol)).toEqual("4,4");
+   
     
     
     // expect(await threePointPageObject.getPolygonAttributeByLocator("stroke-width",curvyProductionPageObject.curve2_Whole).nth(1)).toEqual("2");
@@ -89,7 +93,7 @@ test.beforeEach(async ({ page }) => {
   await page.waitForTimeout(2000);
   await expect(page.frameLocator(pageObject.grapfIframe).locator(curvyProductionPageObject.curve_Sol)).toBeVisible();
   await page.waitForTimeout(2000); 
-    
+   //coordinates are already verified in the file CurvyProduction_exactCPP_Footprint.spec.js 
   
   });
     

@@ -218,6 +218,8 @@ expect(page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointP
     await page.waitForTimeout(3000);
     await page.frameLocator(pageObject.grapfIframe).locator('.form-control').nth(5).fill("90");
     await page.frameLocator(pageObject.grapfIframe).locator('.form-control').nth(6).fill("90");
+    await page.frameLocator(pageObject.grapfIframe).locator('.form-control').nth(6).evaluate(e => e.blur());
+    await page.waitForTimeout(3000);
     await page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointPageObject.btn_done).click();
     await page.locator(threePointPageObject.retrieveoutput).click();
     expect (page.locator(threePointPageObject.score_area)).toHaveValue('100');

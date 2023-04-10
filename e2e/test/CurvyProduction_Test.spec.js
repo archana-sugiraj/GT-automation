@@ -186,7 +186,7 @@ expect(page.frameLocator(threePointPageObject. whole_Iframe).locator(threePointP
     
   });
 
-  test.only('validating the input boxes and aslo to retrieve the state', async ({ page }) => {    
+  test('validating the input boxes and aslo to retrieve the state', async ({ page }) => {    
     await pageObject.launchApplication(environment.baseUrl);
     await page.locator(threePointPageObject.retrieveoutputtextarea).type(data.ppauthor_state);
     await page.locator(threePointPageObject.modedropdown).selectOption('test');

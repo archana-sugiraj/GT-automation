@@ -28,7 +28,7 @@ test.beforeEach(async ({ page }) => {
     await page.locator('text=Tricon QALV Test').click();
     await page.waitForTimeout(6000);
     await page.locator('text= Add assignment').click();
-    await page.locator('[href="javascript:;"]').nth(15).click();
+    await page.locator('[href="javascript:;"]').nth(16).click();
     await page.locator(".form-control").nth(0).click();
     await page.waitForTimeout(2000);
     await page.locator(".form-control").nth(0).fill("1");
@@ -40,7 +40,7 @@ test.beforeEach(async ({ page }) => {
       await page.waitForTimeout(1000),
       page.locator('button:text("Attach file")').click()
       ]);
-     await filechooser2.setFiles("tests/uploadFile/RailwireBilling_Nov_Feb.pdf");   
+     await filechooser2.setFiles("e2e/uploadFile/RailwireBilling_Nov_Feb.pdf");   
     await page.locator('button:text("Save")').click();
     await page.locator('button:text("Add activity")').click();
     await page.locator(".form-control").nth(0).click();
@@ -59,4 +59,5 @@ test.beforeEach(async ({ page }) => {
     //await page.waitForTimeout(6000); 
     
   });
+  
   

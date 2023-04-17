@@ -49,6 +49,7 @@ export class ThreePointPageObject {
   txt_Redo="//span[text()='Redo']";
   txt_Reset="//span[text()='Reset']";
   retrieveoutputtextarea = '[name="ext_012345678_1_ostate"]';
+  inputtextarea = '[name="ext_012345678_1_state"]';
   threepointshadertool = '#ThreeShader_2_item';
   threepointshadertoolicon = '#three-vertices-icon';
   solutionviewtext = "//body[text()='ThreePointShader 2']";
@@ -102,8 +103,38 @@ export class ThreePointPageObject {
  txt_Incomplete = "//span[text()='Incomplete']";
  txt_Incomplete1 = "//span[text()='Incorrect']";
  txt_coordinates = "//label[text()='Coordinates']";
- 
+ //questionEditor = '#stem';
 
+ worksheet_Tab = "//a[text()='Worksheet Answers']";
+ //ques_Iframe = '.cke_wysiwyg_frame';
+
+
+
+ //state of ver4
+ graph_Heading = '.font-weight-normal';
+ edit_btn = '[aria-label="Edit"]';
+ lock_btn = '.dpg-icon-unlock';
+ delete_btn = '.dpg-icon-trash';
+ attributes_Setup = '.btn-mr-8';
+ demand_txt = '//span[text()="Demand"]';
+ d_txt = '//span[text()="D"]';
+ properties_Panel = '.properties-panel';
+ txtIframe = '#mce_7_ifr';
+ txtcnt = '#mce_7';
+Label = '//span[text()="Top Left"]';
+Label_txt = '//span[text()="labelCoordinates Dropdown"]';
+line_Sol = '#Line_4';
+line_Statetxt = '//h3[text()="Line States:"]';
+line_Scoretxt = '//h3[text()="Scoring:"]';
+radio_btn = '.ahe-ui-radio';
+score_point = '.score-type-label';
+score_txt = '.score-name-label';
+add_Point = '.dpg-icon-add';
+draw_Compare = '.pill-wrapper';
+foot_Print = '.ahe-ui-checkbox';
+Sol_View = '//h4[text()="Solution View"]';
+cls_btn = '.dpg-icon-system-close';
+graph_Label = '.text-nowrap';
 
   page;
   constructor(page){
